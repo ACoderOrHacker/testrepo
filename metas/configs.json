@@ -1,0 +1,78 @@
+// OE Metainfos
+// All compile-time configuration options.
+// Every module has its own configs under the `<module-name>` key.
+// the oe global configs are under the `oe` key.
+// Every config the module has is listed under the `oe-defaults` key.
+// Upper template(<UPPER_TEMPLATE>) means the item must be uppercase.
+// But the characters are case-insensitive.
+// For example, `module` is the same as `MODULE`, but OE_<MODULE> actually means
+// OE_MODULE And oe.<module> means oe.module but not oe.MODULE Config structure:
+// "<config-name>": {
+//     //!< the default value of the config, can be integer, boolean, string, or
+//     null (required)
+//     //!< `null` means not defined this macro or version
+//     "default": <value>,
+//     //!< the description of the config (required)
+//     "description": "",
+//     //!< the reason why the config is deprecated (optional)
+//     "deprecated": ""
+// }
+//
+// Example:
+// {
+//     "oe": {
+//          "OE_USE_MODULES": {
+//              "default": null,
+//              "description": "Use modules in modules/"
+//          },
+//          "OE_USE_STD_MODULES": {
+//              "default": null,
+//              "description": "Use C++23 std modules in oe library"
+//          }
+//     },
+//     "<module-name>": {
+//          "<config-name>": {
+//              "default": <value>,
+//              "description": "",
+//              "deprecated": ""
+//          }
+//     }
+// }
+{
+    "oe": {
+        "OE_USE_MODULES": {
+            "default": null,
+            "description": "Use all modules in modules/"
+        },
+        "OE_USE_STD_MODULES": {
+            "default": null,
+            "description": "Use C++23 std modules in oe library"
+        },
+        "OE_NOT_USE_STD_LIBS": {
+            "default": null,
+            "description": "Don't use C++ standard library in oe"
+        },
+        "OE_SHARED": {
+            "default": null,
+            "description": "Build oe as a shared library"
+        },
+        "OE_DEBUG": {
+            "default": null,
+            "description": "Build oe in debug mode"
+        }
+    },
+    "oe-defaults": {
+        "OE_<MODULE>_USE_MODULES": {
+            "default": null,
+            "description": "Use just modules/oe/<module>.ixx"
+        },
+        "OE_<MODULE>_USE_STD_MODULES": {
+            "default": null,
+            "description": "Use C++23 std modules in <MODULE> library"
+        },
+        "OE_<MODULE>_NOT_USE_STD_LIBS": {
+            "default": null,
+            "description": "Don't use C++ standard library in <MODULE> library"
+        }
+    }
+}
