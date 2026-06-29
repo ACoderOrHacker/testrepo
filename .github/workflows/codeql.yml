@@ -20,7 +20,7 @@ jobs:
       matrix:
         include:
           - language: c-cpp
-          - build-mode: none
+            build-mode: none
     steps:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v3
