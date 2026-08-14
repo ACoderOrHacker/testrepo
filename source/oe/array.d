@@ -1,4 +1,0 @@
-module oe.array;
-
-public:
-

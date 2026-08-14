@@ -1,0 +1,19 @@
+name: Support Question
+description: Question on how to use this project
+title: "support: "
+labels: ["question"]
+assignees: ACoderOrHacker
+
+body:
+  - type: markdown
+    attributes:
+      value: "# Support Question\n\nPlease describe your question in detail below."
+
+  - type: textarea
+    id: question
+    attributes:
+      label: "Your question"
+      description: "A clear and concise description of what you need help with."
+      placeholder: "What would you like to know?"
+    validations:
+      required: true

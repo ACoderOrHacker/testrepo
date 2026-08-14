@@ -5,11 +5,10 @@ set_xmakever("2.2.5")
 set_project("OE")
 set_license("Apache-2.0")
 
---- include directories ---
 add_includedirs("include")
 
 --- set languages ---
-set_languages("c++20")
+set_languages("c++17")
 
 --- compile_commands generation ---
 add_rules("plugin.compile_commands.autoupdate", { outputdir = "build" })
@@ -34,22 +33,6 @@ option("shared")
     set_showmenu(true)
     set_description("Build shared library")
     add_defines("OE_SHARED")
-option_end()
-
-option("modules")
-    set_default(false)
-    set_showmenu(true)
-    set_description("Build with C++20 modules")
-
-    add_defines("OE_USE_MODULES")
-option_end()
-
-option("stdmodules")
-    set_default(false)
-    set_showmenu(true)
-    set_description("Build with C++23 std modules")
-
-    add_defines("OE_USE_STD_MODULES")
 option_end()
 
 includes("xmake/libs.lua")
@@ -79,6 +62,7 @@ option("langcpp")
         end
 
         add_headerfiles("include/(**.hpp)")
+        add_files("src/**.cpp")
 
         add_rules("utils.install.cmake_importfiles")
         add_rules("utils.install.pkgconfig_importfiles")
@@ -103,6 +87,8 @@ option("langd")
     target_end()
 option_end()
 
+
+
 --- tests and benchmarks ---
 
 option("cpptests")
@@ -113,13 +99,13 @@ option_end()
 
 if has_config("cpptests") then
     add_requires("gtest 1.17.0", { alias = "gtest" })
-    add_requires("benchmark 1.9.5", { alias = "benchmark" })
     target("testcpp")
         set_kind("binary")
 
         add_files("tests/*.cpp")
         add_deps("oecpp")
-        add_packages("gtest", "benchmark")
+        add_packages("gtest")
+        add_tests("default")
     target_end()
 end
 
@@ -135,5 +121,40 @@ if has_config("dtests") then
 
         add_files("tests/test.d")
         add_deps("oed")
+        add_tests("default")
+    target_end()
+end
+
+option("cppbench")
+    set_default(false)
+    set_showmenu(true)
+    set_description("Build C++ benchmarks")
+option_end()
+
+if has_config("cppbench") then
+    add_requires("benchmark 1.9.5", { alias = "benchmark" })
+    target("benchmarks_cpp")
+        set_kind("binary")
+
+        add_files("benchmarks/*.cpp")
+        add_deps("oecpp")
+        add_packages("benchmark")
+        add_tests("default")
+    target_end()
+end
+
+option("dbench")
+    set_default(false)
+    set_showmenu(true)
+    set_description("Build D benchmarks")
+option_end()
+
+if has_config("dbench") then
+    target("benchmarks_d")
+        set_kind("binary")
+
+        add_files("benchmarks/*.d")
+        add_deps("oed")
+        add_tests("default")
     target_end()
 end

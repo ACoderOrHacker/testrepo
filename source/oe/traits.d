@@ -1,4 +1,0 @@
-module oe.traits;
-
-public:
-

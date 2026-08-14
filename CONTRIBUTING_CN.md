@@ -32,17 +32,22 @@
 1. 在我们的代码库中搜索相关的开放或关闭的
    [拉取请求](https://github.com/ACoderOrHacker/OE/pulls)，以避免重复工作。
 2. Fork 该项目
-3. 安装 [git-flow](https://git-flow.sh)
-4. 运行 `git-flow init`
-5. 创建一个新的功能分支 (`git flow feature start amazing_feature`)
-6. 添加您的更改 (`git add .`)
-7. 提交您的更改 (`git commit -m 'feat: add amazing_feature'`)
-   OE 使用 [Conventional Commits](https://www.conventionalcommits.org)，所以请在提交消息中遵循规范。
-8. 完成功能分支 (`git flow feature finish amazing_feature`)
-9. 将其推送到远程
-10. [打开拉取请求](https://github.com/ACoderOrHacker/OE/compare?expand=1)
+3. 以`GitFlow`工作流提交代码
+4. 将其推送到远程
+5. [打开拉取请求](https://github.com/ACoderOrHacker/OE/compare?expand=1)
 
 ## 贡献要求
+
+### 提交信息
+
+- 使用清晰、描述性的提交信息。
+- 使用 GitFlow 工作流，GitFlow 配置：`master` 为主分支，`dev` 为开发分支，`feature/` 为特性分支前缀，`release/` 为发布分支前缀，
+  `hotfix/` 为热修复分支前缀。
+-
+使用 [Angular 提交消息格式](https://github.com/angular/angular/blob/main/contributing-docs/commit-message-guidelines.md)
+，如果你在使用JetBrains IDE, 可以使用`Git Flow Helper`插件。
+
+<!-- TODO: Add submodule requires -->
 
 ### 问题报告
 
@@ -77,4 +82,3 @@
 - 使用 clang-format（C/C++）和 dfmt（D）来格式化代码。
 - 使用 `types` 库时使用诸如 std::uint8_t 的类型。
 - 使用 `scripts/add_module.sh` 来添加新模块。
-- 当为模块添加新配置时，在 [metas/configs.json](metas/configs.json) 中添加配置。

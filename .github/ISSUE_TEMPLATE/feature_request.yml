@@ -1,0 +1,67 @@
+name: Feature Request
+description: Suggest an idea for this project
+title: "feat: "
+labels: ["enhancement"]
+assignees: ACoderOrHacker
+
+body:
+  - type: markdown
+    attributes:
+      value: "# Feature Request\n\nPlease fill out the information below to help us understand your suggestion."
+
+  - type: textarea
+    id: describe
+    attributes:
+      label: "Describe the Feature Request"
+      description: "A clear and concise description of what the feature request is. Please include if your feature request is related to a problem."
+      placeholder: "What would you like to see added or improved?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Describe Preferred Solution"
+      description: "A clear and concise description of what you want to happen."
+      placeholder: "How should it work?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Describe Alternatives"
+      description: "A clear and concise description of any alternative solutions or features you've considered."
+      placeholder: "What other approaches have you thought about?"
+    validations:
+      required: false
+
+  - type: textarea
+    id: code
+    attributes:
+      label: "Related Code"
+      description: "If you are able to illustrate the bug or feature request with an example, please provide it here."
+      render: plain text
+      placeholder: "Insert code snippets here"
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "Additional Context"
+      description: "List any other information that is relevant to your issue. Stack traces, related issues, suggestions on how to add, use case, Stack Overflow links, forum links, screenshots, OS if applicable, etc."
+      placeholder: "Add any extra details here"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: pr
+    attributes:
+      label: "If the feature request is approved, would you be willing to submit a PR?"
+      description: "Help can be provided if you need assistance submitting a PR"
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true

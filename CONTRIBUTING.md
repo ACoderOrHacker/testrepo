@@ -1,8 +1,9 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other
+method with the owners of this repository before making a change.
 
-Please note we have a [code of conduct](CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
+Please note we have a [Code of Conduct](CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
 ## Development environment setup
 
@@ -12,7 +13,8 @@ See [README](README.md) for building and packaging instructions.
 
 You've found a bug in the source code, a mistake in the documentation or maybe you'd like a new feature?
 
-Take a look at [GitHub Discussions](https://github.com/ACoderOrHacker/OE/discussions) to see if it's already being discussed.
+Take a look at [GitHub Discussions](https://github.com/ACoderOrHacker/OE/discussions) to see if it's already being
+discussed.
 
 You can help us by [submitting an issue on GitHub](https://github.com/ACoderOrHacker/OE/issues).
 
@@ -33,15 +35,8 @@ Please try to create bug reports that are:
    [Pull Requests](https://github.com/ACoderOrHacker/OE/pulls)
    that relate to your submission. You don't want to duplicate effort.
 2. Fork the project
-3. Install [git-flow](https://git-flow.sh)
-4. Run `git-flow init`
-5. Create a new feature branch (`git flow feature start amazing_feature`)
-6. Add your changes (`git add .`)
-7. Commit your changes (`git commit -m 'feat: add amazing_feature'`)
-   OE uses [conventional commits](https://www.conventionalcommits.org), so please follow the specification in your commit messages.
-8. Finish the feature branch (`git flow feature finish amazing_feature`)
-9. Push it to the remote
-10. [Open a Pull Request](https://github.com/ACoderOrHacker/OE/compare?expand=1)
+3. Write codes as `GitFlow` workflow.
+4. [Open a Pull Request](https://github.com/ACoderOrHacker/OE/compare?expand=1)
 
 ## Contributing requirements
 
@@ -61,6 +56,18 @@ Please try to create bug reports that are:
 - Commits must be atomic and have clear, descriptive English messages.
 - Committing on dev branch is allowed.
 
+### Commit Messages Guidelines
+
+- Use clear, descriptive commit messages.
+- Use GitFlow workflow, the GitFlow config is: `master` for main branch, `dev` for develop branch, `feature/` for the
+  prefix of a feature branch, `release/` for the prefix of a release branch, `hotfix/` for the prefix of a hotfix
+  branch.
+-
+Use [Angular commit message format](https://github.com/angular/angular/blob/main/contributing-docs/commit-message-guidelines.md).
+If you are using `Rebased` or other Intellij-based IDE, use `Git Flow Helper` plugin.
+
+<!-- TODO: Add submodule requires -->
+
 ### Code style
 
 - Use clear, descriptive variable names.
@@ -76,6 +83,5 @@ Please try to create bug reports that are:
 - Classes's member variables should be prefixed with `m_`.
 - Indentation should be 4 spaces.
 - Use clang-format(C/C++) and dfmt(D) to format code.
-- Use `types` library when using types like std::uint8_t
+- Use `types` library when using types like std::uint8_t.
 - Use `scripts/add_module.sh` to add a new module.
-- Add a config in [metas/configs.json](metas/configs.json) when adding a new config for a module.
