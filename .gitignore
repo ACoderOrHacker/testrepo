@@ -38,5 +38,9 @@ build/
 # Generated config files
 include/oe/oe/configs.h
 
-# TODO files
-TODO
+# IDEA files
+.idea/
+
+/cmake-build-debug/
+/node_modules/
+/Testing/

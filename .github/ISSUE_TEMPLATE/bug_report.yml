@@ -1,0 +1,77 @@
+name: Bug Report
+description: Create a report to help OE to improve
+title: "bug: "
+labels: ["bug"]
+assignees: ACoderOrHacker
+
+body:
+  - type: markdown
+    attributes:
+      value: "# Bug Report\n\nPlease fill out the information below to help us address the issue."
+
+  - type: textarea
+    id: version
+    attributes:
+      label: "OE version"
+      description: "Please specify commit or tag version."
+      placeholder: "e.g., v1.0.0 or commit hash"
+    validations:
+      required: true
+
+  - type: textarea
+    id: version
+    attributes:
+      label: "OS"
+      description: "Please specify the OS and its version."
+      placeholder: "e.g., Windows 10, Ubuntu Linux 22.0.4, MacOS..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: "Current behavior"
+      description: "Describe how the bug manifests."
+      placeholder: "What happened?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: "Expected behavior"
+      description: "Describe what you expect the behavior to be without the bug."
+      placeholder: "What should have happened?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to reproduce"
+      description: "Explain the steps required to duplicate the issue, especially if you are able to provide a sample application."
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: code
+    attributes:
+      label: "Related code"
+      description: "If you are able to illustrate the bug or feature request with an example, please provide it here."
+      render: plain text
+      placeholder: "Insert short code snippets here"
+    validations:
+      required: false
+
+  - type: textarea
+    id: other
+    attributes:
+      label: "Other information"
+      description: "List any other information that is relevant to your issue. Related issues, suggestions on how to fix, Stack Overflow links, forum links, etc."
+      placeholder: "Additional context..."
+    validations:
+      required: false

@@ -1,0 +1,55 @@
+name: Codebase improvement
+description: Provide your feedback for the existing codebase. Suggest a better solution for algorithms, development tools, etc.
+title: "dev: "
+labels: ["enhancement"]
+assignees: ACoderOrHacker
+
+body:
+  - type: markdown
+    attributes:
+      value: "# Codebase Improvement\n\nPlease provide your suggestions for improving the codebase."
+
+  - type: textarea
+    id: improvement
+    attributes:
+      label: "Describe the improvement"
+      description: "A clear and concise description of what the improvement is."
+      placeholder: "What would you like to improve?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Describe the problem it solves"
+      description: "A clear and concise description of what problem this solves or what value it adds."
+      placeholder: "Why is this improvement needed?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Describe your preferred solution"
+      description: "A clear and concise description of what you want to happen."
+      placeholder: "How should the improved code behave?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Describe alternatives you've considered"
+      description: "A clear and concise description of any alternative solutions or features you've considered."
+      placeholder: "What other approaches did you think about?"
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "Additional context"
+      description: "Add any other context about the improvement here, e.g., screenshots, links, etc."
+      placeholder: "Any extra details..."
+    validations:
+      required: false

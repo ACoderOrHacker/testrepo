@@ -1,0 +1,37 @@
+name: Documentation Report
+description: Create a report to help us to improve our documentations.
+title: "docs: "
+labels: [ "docs" ]
+assignees: ACoderOrHacker
+
+body:
+  - type: markdown
+    attributes:
+      value: "# Documentation Report\n\nPlease fill out the information below to help us address the issue."
+
+  - type: textarea
+    id: version
+    attributes:
+      label: "OE version"
+      description: "Please specify commit or tag version."
+      placeholder: "e.g., v1.0.0 or commit hash"
+    validations:
+      required: true
+
+  - type: textarea
+    id: which-doc
+    attributes:
+      label: "Documentation page with issues"
+      description: "Describe why the page with issues."
+      placeholder: "How to improve?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: other
+    attributes:
+      label: "Other information"
+      description: "List any other information that is relevant to your issue. Related issues, suggestions on how to fix, Stack Overflow links, forum links, etc."
+      placeholder: "Additional context..."
+    validations:
+      required: false

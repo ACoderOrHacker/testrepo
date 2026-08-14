@@ -1,4 +1,0 @@
-module oe.endian;
-
-
-public:

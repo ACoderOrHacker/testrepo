@@ -1,0 +1,49 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - dev
+      - release/**
+  pull_request:
+    branches:
+      - master
+      - dev
+      - release/**
+
+jobs:
+  build:
+    name: 🔄 Building
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+
+    steps:
+      - name: ⤵️ Checkout out code from Github
+        uses: actions/checkout@v7
+      - name: ♻ Install D compiler
+        uses: dlang-community/setup-dlang@v2
+        with:
+          compiler: dmd-latest
+      - name: ✅ Test D Compiler
+        run: dmd --version
+      - name: ⚙️ Setting up Xmake
+        uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
+      - name: ✨ Configuring
+        run: xmake f --mode=debug --langcpp=y --cpptests=y --langd=y --dtests=y -y
+      - name: 🚀 Building
+        run: xmake build
+      - name: ✅ Testing
+        run: xmake test
+      - name: 📦 Uploading artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build Artifacts
+          path: build/

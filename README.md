@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://github.com/ACoderOrHacker/OE">
-    <img src="logo.png" alt="Logo" width="125" height="125">
+    <img src="https://github.com/ACoderOrHacker/OE/blob/master/docs/static/logo128x128.png" alt="Logo" width="1024" height="1024">
   </a>
 </h1>
 
@@ -38,6 +38,8 @@
 # About
 
 The Ox-Extends Library, based on Ox codebase.
+Using C++20 version in C++ Library.
+And using D2 version in D Library.
 Supports terminal, gui, string, etc.
 It can be used in both [C++](https://cplusplus.com) and [D](https://dlang.org)
 
@@ -58,7 +60,6 @@ DO NOT USE IT.
 | `xmake.lua`                                     | [xmake](https://xmake.io) build file, use this to build C++ & D |
 | `remote`                                        | [xmake](https://xmake.io) remote package files                  |
 | `scripts`                                       | Useful scripts for publishing, packing, etc.                    |
-| `modules`                                       | [C++](https://cplusplus.com) 20 modules                         |
 | `src`                                           | [C++](https://cplusplus.com) source code                        |
 | `include`                                       | [C++](https://cplusplus.com) header files                       |
 | `source`                                        | [D](https://dlang.org) source code                              |
@@ -74,7 +75,8 @@ DO NOT USE IT.
 [Xmake](https://xmake.io) is for building.
 
 [DUB](https://dub.pm) is used for publishing in dub (building is also ok).
-You can also use [scripts/install_dub_deps.sh](scripts/install_dub_deps.sh) to install dependencies for DUB and then build.
+You can also use [scripts/install_dub_deps.sh](scripts/install_dub_deps.sh) to install dependencies for DUB and then
+build.
 Every dependency will be installed into `dub_dependencies` before committing.
 
 ## Packing Dependencies
@@ -100,8 +102,6 @@ xmake build
 You can also use these following options in building:
 
 - `--shared=true/false` - Build shared libraries (default is `false`).
-- `--modules=true/false` - Build With C++20 modules (default is `false`).
-- `--stdmodules=true/false` - Build With C++20 standard modules (default is `false`).
 - `--<module-name>=true/false` - Build With `<module-name>` (default is `true`, all libraries are included by default).
 
 Other build options/macros see [configs](metas/configs.json)
@@ -123,4 +123,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
 This library is under the Apache License 2.0.
 
-The Apache-2.0 license is a permissive open-source license that allows users to freely use, modify, and distribute software while providing an express grant of patent rights from contributors to users.
+The Apache-2.0 license is a permissive open-source license that allows users to freely use, modify, and distribute
+software while providing an express grant of patent rights from contributors to users.

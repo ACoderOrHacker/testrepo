@@ -1,0 +1,317 @@
+[project]
+
+site_name = "OE Documentation"
+site_author = "ACoderOrHacker"
+site_description = "A modern C++20/D utility library collection."
+copyright = "Copyright (C) 2026 ACoderOrHacker"
+repo_name = "ACoderOrHacker/OE"
+repo_url = "https://github.com/ACoderOrHacker/OE"
+edit_uri = "edit/master/docs/"
+
+site_url = "https://ACoderOrHacker.github.io/OE"
+
+docs_dir = "docs"
+site_dir = "site"
+
+watch = [
+    "source",
+    "src",
+    "include",
+    "examples",
+]
+
+# Extra CSSs for styling this documentation.
+extra_css = [
+    "stylesheets/font.css",
+    "stylesheets/grid.css",
+    "stylesheets/avatar.css",
+    "stylesheets/logo.css"
+]
+
+# Navigation.
+# Now i18n is not supported.
+nav = [
+    { "Home" = "en/index.md" },
+    { "About" = [
+        "en/about/index.md",
+        { "Roadmap" = "en/about/roadmap.md" },
+        { "Contributors" = "en/about/contributors.md" },
+        { "License" = "en/about/license.md" },
+        { "Thanks" = "en/about/thanks.md" }
+    ] },
+    { "Get Started" = [
+        "en/get_started/index.md",
+        { "Buildsystems" = [
+            { "Install in CMake" = "en/get_started/installation/install_in_cmake.md" }
+        ] }
+    ] },
+    { "Tutorial" = [
+        "en/tutorial/index.md"
+    ] },
+    { "API References" = "en/api_references/index.md" }, # TODO: Add api references
+    { "Community" = [
+        "en/community/index.md",
+        { "Discussions" = "en/community/discussions.md" },
+        { "FAQs" = "en/community/FAQs.md" },
+        { "Contributing" = [
+            { "Issue Reports" = "en/community/contributing/issue_reports.md" },
+            { "Pull Requests" = "en/community/contributing/pull_requests.md" },
+            { "Documentation Reports" = "en/community/contributing/documentations.md" },
+            { "Code of Conduct" = "en/community/contributing/code_of_conduct.md" }
+        ] },
+        { "Guidelines" = [
+            { "Commit Guidelines" = "en/community/guidelines/commit_guidelines.md" },
+            { "Code Guidelines in C++" = "en/community/guidelines/code_guidelines_cpp.md" },
+            { "Code Guidelines in D" = "en/community/guidelines/code_guidelines_d.md" },
+        ] },
+    ] },
+    { "Blogs" = [
+        "en/blogs/index.md"
+    ] },
+]
+
+
+# Tags on the single documentation.
+[project.extra.tags]
+"Deprecated" = "deprecated"
+"Currently added" = "add"
+"Home" = "home"
+"About" = "about"
+"Get Started" = "get_started"
+"Tutorial" = "tutorial"
+"API References" = "api"
+"Community" = "community"
+"Blogs" = "blogs"
+"Contributing" = "contributing"
+"Discussions" = "discussions"
+"Coding Guidelines" = "guidelines"
+"FAQs" = "faqs"
+
+[project.theme.icon.tag]
+deprecated = "material/alert-circle"
+add = "material/comment-plus-outline"
+home = "material/home-circle"
+about = "material/information"
+get_started = "material/go-kart"
+tutorial = "material/turtle"
+api = "material/code-braces"
+community = "material/comma-box"
+blogs = "material/post"
+contributing = "material/heart-cog"
+discussions = "material/comment"
+guidelines = "material/information"
+faqs = "material/help-circle"
+
+[project.extra]
+homepage = "https://ACoderOrHacker.github.io/OE"
+
+#=============================================
+#             Languages                      #
+#=============================================
+
+alternate = [
+    # See https://zensical.org/docs/setup/language/ for all support languages
+    { name = "English", link = "/en/", lang = "en" },
+    # Chinese is not opened, too busy.
+    # { name = "Chinese", link = "/zh/", lang = "zh" },
+]
+
+#=============================================
+#             Theme Configs                  #
+#=============================================
+
+# If you want to use `material` theme (zensical default).
+# Then replace:
+# name = "catppuccin"
+# As:
+# name = "material"
+# variant = "classic"
+# For the Classic Material Theme (Material for MkDocs style). Or:
+# name = "material"
+# variant = "modern"
+# For the Modern Material Theme (Zensical Style).
+
+[project.theme]
+name = "catppuccin"
+language = "en"
+custom_dir = "docs/overrides"
+
+#=============================================
+#             Theme Features                 #
+#=============================================
+
+
+features = [
+    "announce.dismiss",
+    "navigation.instant",
+    "navigation.instant.prefetch",
+    "navigation.instant.progress",
+    "navigation.tracking",
+    "navigation.top",
+    "navigation.tabs",
+    "navigation.tabs.sticky",
+    "navigation.sections",
+    "navigation.footer",
+    "navigation.path",
+    "search.suggest",
+    "search.highlight",
+    "search.share",
+    "navigation.expand",
+    "navigation.indexes",
+    "content.tabs.link",
+    "content.tooltips",
+    "content.code.copy",
+    "content.action.edit",
+    "content.action.view",
+    "content.code.annotate",
+    "toc.follow",
+]
+
+#=============================================
+#             Logo & Favicons                #
+#=============================================
+
+logo = "static/logo144x144.png"
+# Favicon is set by docs/overrides
+favicon = "static/favicons/favicon.ico"
+
+#=============================================
+#                Fonts                       #
+#=============================================
+
+font.code = "Jetbrains Mono"
+font.text = "Roboto"
+
+#=============================================
+#           Theme Pallete Configs            #
+#=============================================
+
+# We now use catppuccin-zensical that provides a catppuccin pallette.
+# This config is for default zensical theme (material).
+# If you enabled `material` upper, then uncomment these codes and comment the catppuccin pallete.
+#
+# [[project.theme.palette]]
+# scheme = "default"
+# toggle = { icon = "material/brightness-7", name = "Switch to dark mode" }
+
+# [[project.theme.palette]]
+# scheme = "slate"
+# toggle = { icon = "material/brightness-4", name = "Switch to light mode" }
+
+[[project.theme.palette]]
+scheme = "catppuccin-mocha"
+primary = "custom"
+accent = "custom"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to Macchiato"
+
+[[project.theme.palette]]
+scheme = "catppuccin-macchiato"
+primary = "custom"
+accent = "custom"
+toggle.icon = "lucide/cloud-moon"
+toggle.name = "Switch to Frappé"
+
+[[project.theme.palette]]
+scheme = "catppuccin-frappe"
+primary = "custom"
+accent = "custom"
+toggle.icon = "lucide/cloud-sun"
+toggle.name = "Switch to Latte"
+
+[[project.theme.palette]]
+scheme = "catppuccin-latte"
+primary = "custom"
+accent = "custom"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to Mocha"
+
+#=============================================
+#             Socials                        #
+#=============================================
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/ACoderOrHacker"
+name = "GitHub"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/bilibili"
+link = "https://space.bilibili.com/3493119131650529"
+name = "Bilibili"
+
+[[project.extra.social]]
+icon = "fontawesome/solid/envelope"
+link = "mailto:ACoderOrHacker@zohomail.com"
+name = "Email"
+
+#=============================================
+#            Other Configs                   #
+#=============================================
+
+[project.validation]
+invalid_links = true
+invalid_link_anchors = true
+unresolved_references = false
+unresolved_footnotes = false
+unused_definitions = false
+unused_footnotes = false
+shadowed_definitions = false
+shadowed_footnotes = false
+
+[project.markdown_extensions]
+abbr = { }
+admonition = { }
+attr_list = { }
+def_list = { }
+footnotes = { }
+md_in_html = { }
+tables = { }
+pymdownx.caret = { }
+pymdownx.mark = { }
+pymdownx.tilde = { }
+pymdownx.details = { }
+pymdownx.blocks.caption = { }
+
+toc = {
+    permalink = true
+}
+
+pymdownx.arithmatex = {
+    generic = true,
+}
+
+pymdownx.emoji = {
+    emoji_generator = "zensical.extensions.emoji.to_svg",
+    emoji_index = "zensical.extensions.emoji.twemoji",
+    options.custom_icons = []
+}
+
+pymdownx.highlight = {
+    anchor_linenums = true,
+    auto_title = true,
+    linenums = true,
+    linenums_style = "table",
+}
+
+pymdownx.tabbed = {
+    alternate_style = true,
+}
+
+pymdownx.tasklist = {
+    custom_checkbox = true,
+}
+
+pymdownx.inlinehilite = { }
+pymdownx.superfences = { }
+
+pymdownx.keys = { }
+pymdownx.smartsymbols = { }
+pymdownx.snippets = { }
+
+[project.plugins]
+search = { }
+
+[project.extra.version]
+method = "mike"
+alias = true

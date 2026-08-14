@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://github.com/ACoderOrHacker/OE">
-    <img src="logo.png" alt="Logo" width="125" height="125">
+    <img src="https://github.com/ACoderOrHacker/OE/blob/master/docs/static/logo128x128.png" alt="Logo" width="125" height="125">
   </a>
 </h1>
 
@@ -38,6 +38,8 @@
 # 关于本库
 
 Ox 扩展库，基于Ox代码仓库
+C++ 库基于 C++20 标准
+D 库基于 D2
 支持大部分常用库
 可以在C++/D 中使用
 对于[Dlang](https://dlang.org/), 可以直接使用[Dub](https://dub.pm/) 加入该依赖
@@ -58,7 +60,6 @@ Ox 库目前处于废弃状态，不应使用
 | `xmake.lua`                                     | [xmake](https://xmake.io) 构建文件                         |
 | `remote`                                        | [xmake](https://xmake.io) 远程仓库文件，用于xmake 依赖管理 |
 | `scripts`                                       | 使用脚本，用于创建新模块等用途                             |
-| `modules`                                       | [C++](https://cplusplus.com) 20 模块文件                   |
 | `src`                                           | [C++](https://cplusplus.com) 源码                          |
 | `include`                                       | [C++](https://cplusplus.com) 头文件                        |
 | `source`                                        | [D](https://dlang.org) 源文件                              |
@@ -99,7 +100,6 @@ xmake build
 构建时可以使用以下选项：
 
 - `--shared=true/false` - 以共享库方式构建（默认是 `false`）。
-- `--stdmodules=true/false` - 构建时使用 C++20 标准模块（默认是 `false`）。
 - `--<module-name>=true/false` - 添加 `<module-name>` 源码（默认是 `true`, 及所有库加入）。
 
 其他构建选项也可从 [配置元数据](metas/configs.json) 中获取
