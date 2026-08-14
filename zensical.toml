@@ -8,7 +8,7 @@ repo_name = "ACoderOrHacker/OE"
 repo_url = "https://github.com/ACoderOrHacker/OE"
 edit_uri = "edit/master/docs/"
 
-site_url = "https://ACoderOrHacker.github.io/OE"
+site_url = "https://ACoderOrHacker.github.io/testrepo"
 
 docs_dir = "docs"
 site_dir = "site"
