@@ -1,0 +1,79 @@
+[project]
+
+name = "OE"
+description = "The modern C++/D utilitiy library collection"
+license = "Apache-2.0"
+authors = ["ACoderOrHacker"]
+maintainers = ["ACoderOrHacker"]
+homepage = "https://ACoderOrHacker.github.io/OE"
+documentation = "https://ACoderOrHacker.github.io/OE"
+repository = "https://github.com/ACoderOrHacker/OE"
+
+version = "0.0.1-alpha"
+
+[tasks]
+
+build = {
+    inline = true,
+    run = {
+        plugin = "cmake:build"
+    }
+}
+
+test = {
+    inline = true,
+    run = {
+        plugin = "cmake:test"
+    }
+}
+
+docs = {
+    inline = true,
+    run = {
+        script = {
+            command = ["zensical", "build", "--clean"],
+            cwd = "${ parentdir(configfile.path) }"
+        }
+    }
+}
+
+release = {
+    inline = true,
+    run = {
+        plugin = "autorelease"
+    }
+}
+
+update-version = {
+    inline = true,
+    run = {
+        plugin = "autoversion:update"
+    }
+}
+
+
+[requirements]
+cmake = ">=3.28"
+
+# Zensical for Documentation
+zensical = {
+    source = "pip",
+    dependencies = {
+        "mike" = {
+            source = "pip",
+            args = {
+                url = "https://github.com/squidfunk/mike.git"
+            }
+        },
+        "catppuccin-zensical" = {
+            source = "pip"
+        }
+    }
+}
+
+[plugins]
+
+autorelease = { }
+autoversion = { }
+changelog = { }
+git = { }
