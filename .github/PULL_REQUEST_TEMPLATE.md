@@ -1,40 +1,45 @@
-<!--- Please provide a general summary of your changes in the title above -->
+## Description
 
-## Pull Request type
+<!-- Provide a clear summary of what this PR does and why. -->
 
-<!-- Please try to limit your pull request to one type; submit multiple pull requests if needed. -->
+## Type of Change
 
-Please check the type of change your PR introduces:
+- [ ] New feature
+- [ ] Bug fix
+- [ ] Refactoring (no functional changes)
+- [ ] Documentation update
+- [ ] Infrastructure / CI/CD
+- [ ] Performance improvement
 
-- [ ] Bugfix
-- [ ] Feature
-- [ ] Code style update (formatting, renaming)
-- [ ] Refactoring (no functional changes, no API changes)
-- [ ] Build-related changes
-- [ ] Documentation content changes
-- [ ] Other (please describe):
+## Changes Made
 
-## What is the current behavior?
-
-<!-- Please describe the current behavior that you are modifying, or link to a relevant issue. -->
-
-Issue Number: N/A
-
-## What is the new behavior?
-
-<!-- Please describe the behavior or changes that are being added by this PR. -->
+<!-- List the specific changes. Be precise. -->
 
 -
 -
 -
 
-## Does this introduce a breaking change?
+## How to Test
 
-- [ ] Yes
-- [ ] No
+<!-- Step-by-step instructions for reviewers to verify this works. -->
 
-<!-- If this does introduce a breaking change, please describe the impact and migration path for existing applications below. -->
+1.
+2.
+3.
 
-## Other information
+## Checklist
 
-<!-- Any other information that is important to this PR, such as screenshots of how the component looks before and after the change. -->
+- [ ] Code follows the project's style guidelines
+- [ ] Self-reviewed the code for obvious errors
+- [ ] Added or updated tests where applicable
+- [ ] Existing tests pass locally
+- [ ] Updated documentation if needed
+- [ ] No new warnings or console errors introduced
+
+## Related Issues
+
+<!-- Link related tickets or issues. Use "Closes #123" to auto-close. -->
+
+## Screenshots
+
+<!-- If applicable, add screenshots or screen recordings. -->
