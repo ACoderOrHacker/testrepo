@@ -22,7 +22,7 @@ jobs:
 
       - name: Cocogitto release
         id: release
-        uses: cocogitto/cocogitto-action@v4.1.0
+        uses: cocogitto/cocogitto-action@main
         with:
           command: bump
           args: --auto
