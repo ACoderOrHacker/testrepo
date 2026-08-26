@@ -7,4 +7,4 @@ DerivePointerAlignment: false
 PointerAlignment: Left
 SortIncludes: false
 IndentPPDirectives: AfterHash
-ColumnLimit: 100
+ColumnLimit: 128

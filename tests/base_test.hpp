@@ -9,5 +9,6 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <benchmark/benchmark.h>
 
 #endif // !OE_TESTS_BASE_TEST_HPP

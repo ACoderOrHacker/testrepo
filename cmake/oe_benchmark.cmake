@@ -1,6 +1,8 @@
 # Benchmarks Framework
 # Using Google Benchmark
 
+include(CPM.cmake)
+
 CPMAddPackage(
         NAME benchmark
         GITHUB_REPOSITORY google/benchmark

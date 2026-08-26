@@ -3,7 +3,7 @@
  * @brief Detection macros for compiler, language version, system, etc.
  * Used by legacy C/C++ Headers or C/C++ Modules as a header-unit.
  * If you are using C++ modules, load it as a header-unit like:
- * @code{.cpp}
+ * @code {.cpp}
  * import <oe/detections.h>
  * @endcode
  * @copyright Copyright (C) 2026 ACoderOrHacker

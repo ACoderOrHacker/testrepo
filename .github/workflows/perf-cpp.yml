@@ -1,0 +1,109 @@
+name: C++ performance
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master, dev]
+    paths-ignore:
+      - "docs/**"
+      - "source/**"
+      - "**.d"
+      - "README.md"
+      - "CONTRIBUTING.md"
+      - "LICENSE"
+      - "SECURITY.md"
+      - "zensical.toml"
+  pull_request:
+    branches: [master, dev]
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux x86_64 little-endian
+            runner: ubuntu-latest
+            generator: Ninja
+          - name: Linux x86 32-bit little-endian
+            runner: ubuntu-latest
+            generator: Ninja
+            flags: "-m32"
+            packages: gcc-multilib g++-multilib
+          - name: Linux arm64 little-endian
+            runner: ubuntu-24.04-arm
+            generator: Ninja
+          - name: Windows x86_64 little-endian
+            runner: windows-latest
+            generator: Visual Studio 17 2022
+          - name: macOS arm64 little-endian
+            runner: macos-14
+            generator: Ninja
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build ${{ matrix.packages }}
+      - name: Configure and build
+        shell: bash
+        run: |
+          cmake -S . -B build -G "${{ matrix.generator }}" \
+            -DOE_SHARED=OFF -DOE_BUILD_BENCHMARKS=ON \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_CXX_FLAGS="${{ matrix.flags }}"
+          cmake --build build --target oe_benchmarks --parallel
+      - name: Run benchmark
+        shell: bash
+        run: ./build/oe_benchmarks --benchmark_format=json --benchmark_out=cpp-benchmark.json 2>&1 | tee cpp-benchmark.log
+      - name: Upload benchmark results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cpp-benchmark-${{ matrix.name }}
+          path: |
+            cpp-benchmark.json
+            cpp-benchmark.log
+          if-no-files-found: warn
+
+  big-endian:
+    name: Linux s390x big-endian
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and benchmark under QEMU
+        uses: uraimo/run-on-arch-action@v3
+        with:
+          arch: s390x
+          distro: ubuntu_latest
+          githubToken: ${{ github.token }}
+          install: |
+            apt-get update -q -y
+            apt-get install -q -y cmake ninja-build g++ git
+          dockerRunArgs: |
+            --volume "${PWD}:/workspace"
+          shell: /bin/bash
+          run: |
+            set -o pipefail
+            cd /workspace
+            cmake -S . -B build -G Ninja -DOE_SHARED=OFF \
+              -DOE_BUILD_BENCHMARKS=ON -DCMAKE_BUILD_TYPE=Release
+            cmake --build build --target oe_benchmarks --parallel
+            ./build/oe_benchmarks --benchmark_format=json \
+              --benchmark_out=cpp-benchmark-s390x.json 2>&1 | tee cpp-benchmark-s390x.log
+      - name: Upload big-endian benchmark
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cpp-benchmark-linux-s390x-big-endian
+          path: |
+            cpp-benchmark-s390x.json
+            cpp-benchmark-s390x.log
+          if-no-files-found: warn

@@ -1,0 +1,67 @@
+# Mise Project File
+# Copyright (C) 2026 ACoderOrHacker. All rights reserved.
+
+[tools]
+cmake = "4.4.2"
+
+python = "3.12"
+uv = "latest"
+
+# hk tool for formatting and generating
+hk = "1.56.1"
+clang-format = "latest"
+"pipx:cmakefmt" = "latest"
+taplo = "latest"
+rumdl = "latest"
+yamlfmt = "latest"
+pkl = "latest"
+actionlint = "latest"
+typos = "latest"
+cocogitto = "latest"
+editorconfig-checker = "latest"
+
+"pipx:zensical" = {
+    version = "0.0.57",
+    uvx_args = "--with git+https://github.com/squidfunk/mike.git --with catppuccin-zensical"
+}
+
+[env]
+HK_MISE = 1
+
+[settings]
+python.uv_venv_auto = "create|source"
+
+[hooks]
+postinstall = """
+    hk install --mise
+"""
+
+[tool_config]
+locked = false
+
+[tasks.build]
+description = "Build OE"
+
+run = """
+    // TODO
+"""
+
+[tasks.test]
+description = "Run tests"
+run = """
+    // TODO
+"""
+
+[tasks.build-docs]
+description = "Build Documentations at site/"
+
+run = """
+    zensical build --clean
+"""
+
+[tasks.serve-docs]
+description = "Serve Documentations on Local Machine"
+
+run = """
+    zensical serve
+"""

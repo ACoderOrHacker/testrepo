@@ -1,17 +1,14 @@
 # Tests Frameworks
 # Using GoogleTest
 
-include(FetchContent)
+include(CPM.cmake)
 
-FetchContent_Declare(
-        googletest
-        GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG v1.16.0
-        GIT_SHALLOW ON
+CPMAddPackage(
+        NAME googletest
+        GITHUB_REPOSITORY google/googletest
+        VERSION 1.16.0
+        OPTIONS "gtest_force_shared_crt ON"
 )
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
-
 
 # ============================================
 # Function to define the test

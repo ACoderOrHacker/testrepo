@@ -9,7 +9,7 @@ on:
 
 jobs:
   codeql:
-    name: 🏭 Scanning
+    name: Scanning
     runs-on: ubuntu-latest
     permissions:
       security-events: write
@@ -22,18 +22,18 @@ jobs:
           - language: c-cpp
             build-mode: none
     steps:
-      - name: ⤵️ Check out code from GitHub
+      - name: Check out code from GitHub
         uses: actions/checkout@v7
-      - name: 🏗 Initialize CodeQL
+      - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
         with:
           languages: ${{matrix.language}}
           build-mode: ${{matrix.build-mode}}
-      - name: 🚀 Perform CodeQL Analysis
+      - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
         with:
           category: "/language:${{matrix.language}}"
-      - name: ✨ Upload CodeQL database as artifact
+      - name: Upload CodeQL database as artifact
         uses: actions/upload-artifact@v4
         with:
           name: OE-Code-Database

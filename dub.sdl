@@ -7,3 +7,14 @@ targetName "oed"
 targetType "library"
 targetPath "build"
 sourcePath "source"
+
+configuration "unittest" {
+    targetType "executable"
+    mainSourceFile "tests/test.d"
+    dependency "unit-threaded" version="~>0.10.8"
+}
+
+configuration "benchmark" {
+    targetType "executable"
+    mainSourceFile "benchmarks/benchmarks.d"
+}

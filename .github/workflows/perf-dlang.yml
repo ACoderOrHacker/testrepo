@@ -1,0 +1,99 @@
+name: D performance
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master, dev]
+    paths-ignore:
+      - "src/**"
+      - "include/**"
+      - "tests/**.cpp"
+      - "benchmarks/**.cpp"
+      - "cmake/**"
+      - "CMakeLists.txt"
+      - "docs/**"
+      - "README.md"
+      - "CONTRIBUTING.md"
+      - "LICENSE"
+      - "SECURITY.md"
+      - "zensical.toml"
+  pull_request:
+    branches: [master, dev]
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux x86_64 little-endian
+            runner: ubuntu-latest
+            compiler: ldc-latest
+            arch: x86_64
+          - name: Linux x86 32-bit little-endian
+            runner: ubuntu-latest
+            compiler: ldc-latest
+            arch: x86
+          - name: Linux arm64 little-endian
+            runner: ubuntu-24.04-arm
+            compiler: ldc-latest
+            arch: arm64
+          - name: Windows x86_64 little-endian
+            runner: windows-latest
+            compiler: ldc-latest
+            arch: x86_64
+          - name: macOS arm64 little-endian
+            runner: macos-14
+            compiler: ldc-latest
+            arch: arm64
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dlang-community/setup-dlang@v2
+        with:
+          compiler: ${{ matrix.compiler }}
+      - name: Run D benchmark
+        shell: bash
+        run: dub run -c benchmark --compiler="$DC" --arch="${{ matrix.arch }}" 2>&1 | tee d-benchmark.log
+      - name: Upload benchmark results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: d-benchmark-${{ matrix.name }}
+          path: d-benchmark.log
+          if-no-files-found: warn
+
+  big-endian:
+    name: Linux s390x big-endian
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and benchmark under QEMU
+        uses: uraimo/run-on-arch-action@v3
+        with:
+          arch: s390x
+          distro: ubuntu_latest
+          githubToken: ${{ github.token }}
+          install: |
+            apt-get update -q -y
+            apt-get install -q -y ldc dub
+          dockerRunArgs: |
+            --volume "${PWD}:/workspace"
+          shell: /bin/bash
+          run: |
+            set -o pipefail
+            cd /workspace
+            dub run -c benchmark --compiler=ldc2 \
+              2>&1 | tee d-benchmark-s390x.log
+      - name: Upload big-endian benchmark
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: d-benchmark-linux-s390x-big-endian
+          path: d-benchmark-s390x.log
+          if-no-files-found: warn

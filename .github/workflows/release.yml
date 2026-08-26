@@ -1,32 +1,36 @@
 name: Release
 
 on:
+  workflow_dispatch:
   push:
-    tags:
-      - v**
-
-permissions:
-  contents: write
-  packages: write
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   release:
-    name: 🎈 Releasing
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-22.04
     steps:
-      - name: ⤵️ Checkout out code from Github
-        uses: actions/checkout@v7
+      - name: Perform release
+        uses: actions/checkout@v3
         with:
-          ref: ${{github.ref_name}}
-      - name: ✨ Set up Node.js
-        uses: actions/setup-node@v4
+          fetch-depth: 0
+
+      - name: Cocogitto release
+        id: release
+        uses: cocogitto/cocogitto-action@v3
         with:
-          node-version: "latest"
-          registry-url: "https://registry.npmjs.org"
-      - name: 📦 Install dependencies
-        run: npm ci
-      - name: 🚀 Publish package
-        run: npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
+          release: true
+          git-user: 'ACoderOrHacker'
+          git-user-email: 'ACoderOrHacker@zohomail.com'
+
+      - name: Generate Changelog
+        run: cog changelog --at ${{ steps.release.outputs.version }} -t full_hash > GITHUB_CHANGELOG.md
+
+      - name: Upload github release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: GITHUB_CHANGELOG.md
+          tag_name: ${{ steps.release.outputs.version }}

@@ -18,7 +18,6 @@
 .dub
 docs.json
 __dummy.html
-docs/
 
 # Code coverage
 *.lst
@@ -43,4 +42,3 @@ include/oe/oe/configs.h
 
 /cmake-build-debug/
 /node_modules/
-/Testing/

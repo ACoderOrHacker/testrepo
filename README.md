@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://github.com/ACoderOrHacker/OE">
-    <img src="https://github.com/ACoderOrHacker/OE/blob/master/docs/static/logo128x128.png" alt="Logo" width="1024" height="1024">
+    <img src="static/logo1024x1024.png" alt="Logo" width="125" height="125">
   </a>
 </h1>
 
@@ -75,8 +75,7 @@ DO NOT USE IT.
 [Xmake](https://xmake.io) is for building.
 
 [DUB](https://dub.pm) is used for publishing in dub (building is also ok).
-You can also use [scripts/install_dub_deps.sh](scripts/install_dub_deps.sh) to install dependencies for DUB and then
-build.
+You can also use [scripts/install_dub_deps.sh](scripts/install_dub_deps.sh) to install dependencies for DUB and then build.
 Every dependency will be installed into `dub_dependencies` before committing.
 
 ## Packing Dependencies
@@ -123,5 +122,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
 This library is under the Apache License 2.0.
 
-The Apache-2.0 license is a permissive open-source license that allows users to freely use, modify, and distribute
-software while providing an express grant of patent rights from contributors to users.
+The Apache-2.0 license is a permissive open-source license that allows users to freely use, modify, and distribute software while providing an express grant of patent rights from contributors to users.

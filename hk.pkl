@@ -1,0 +1,52 @@
+amends "package://github.com/jdx/hk/releases/download/v1.56.1/hk@1.56.1#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v1.56.1/hk@1.56.1#/Builtins.pkl"
+
+local formatters = new Mapping<String, Step | Group> {
+    ["cmakefmt"] = new Step {
+        glob = List("**/CMakeLists.txt", "**/*.cmake")
+        check = "cmakefmt --in-place ."
+    }
+    ["taplo-format"] = Builtins.taplo_format
+    ["rumdl-format"] = Builtins.rumdl_format
+    ["editorconfig"] = Builtins.editorconfig_checker
+    ["yamlfmt"] = Builtins.yamlfmt
+    ["actionlint"] = Builtins.actionlint
+    ["mise"] = Builtins.mise
+    ["pkl"] = Builtins.pkl_format
+
+}
+
+hooks {
+  ["format"] {
+      fix = true
+      steps = formatters
+  }
+
+  // Git hooks
+
+  ["pre-commit"] {
+      fix = true
+      stash = "git"
+      steps {
+          ["generate-compiler-detections"] {
+              check = "python3 scripts/compiler_detections_generate.py"
+          }
+          ["generate-platform-detections"] {
+              check = "python3 scripts/platform_detections_generate.py"
+          }
+          ["git-add-generated"] {
+              check = "git add include/oe/detections/compiler_detections.h include/oe/detections/platform_detections.h"
+          }
+          ...formatters
+          ["git-add-updated"] {
+              check = "git add -u"
+          }
+      }
+  }
+
+  ["commit-msg"] {
+    steps {
+      ["cocogitto-commit-msg"] = Builtins.cocogitto_commit_msg
+    }
+  }
+}

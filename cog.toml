@@ -1,0 +1,47 @@
+from_latest_tag = false
+ignore_merge_commits = true
+ignore_fixup_commits = false
+disable_changelog = false
+disable_bump_commit = false
+generate_mono_repository_global_tag = true
+generate_mono_repository_package_tags = true
+branch_whitelist = []
+pre = "alpha.*"
+skip_ci = "[skip ci]"
+skip_untracked = false
+pre_bump_hooks = []
+post_bump_hooks = []
+pre_package_bump_hooks = []
+post_package_bump_hooks = []
+
+tag_prefix = "v"
+
+[git_hooks]
+
+[commit_types]
+feat = { changelog_title = "Features", order = 1 }
+docs = { changelog_title = "Documentation", order = 2 }
+fix = { changelog_title = "Bug Fixes", order = 3 }
+perf = { changelog_title = "Performance Improvements", order = 4 }
+refactor = { changelog_title = "Refactoring", order = 5 }
+build = { changelog_title = "Building Changes", order = 6 }
+ci = { changelog_title = "CI/CD Changes", order = 7 }
+style = { changelog_title = "Styling Changes", order = 8 }
+
+chore = { omit_from_changelog = true }
+test = { omit_from_changelog = true }
+revert = { omit_from_changelog = true }
+
+
+[changelog]
+template = "remote"
+remote = "github.com"
+owner = "ACoderOrHacker"
+repository = "OE"
+path = "CHANGELOG.md"
+authors = [
+    { username = "ACoderOrHacker", signature = "ACoderOrHacker" },
+    { username = "ACoderOrHacker", signature = "She Shaoke" }
+]
+
+[bump_profiles]

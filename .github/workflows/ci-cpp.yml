@@ -1,0 +1,213 @@
+name: C++ CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master, dev]
+    paths-ignore:
+      - "docs/**"
+      - "source/**"
+      - "**.d"
+      - "README.md"
+      - "CONTRIBUTING.md"
+      - "LICENSE"
+      - "SECURITY.md"
+      - "zensical.toml"
+  pull_request:
+    branches: [master, dev]
+
+permissions:
+  contents: read
+
+jobs:
+  native:
+    name: ${{ matrix.platform }} / ${{ matrix.compiler }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [linux-x86_64, linux-x86, linux-arm64, windows-x86_64, macos-arm64]
+        compiler: [gcc, clang, msvc]
+        exclude:
+          - platform: linux-arm64
+            compiler: msvc
+          - platform: linux-x86
+            compiler: clang
+          - platform: linux-x86
+            compiler: msvc
+          - platform: windows-x86_64
+            compiler: gcc
+          - platform: macos-arm64
+            compiler: gcc
+          - platform: macos-arm64
+            compiler: msvc
+        include:
+          - platform: linux-x86_64
+            runner: ubuntu-latest
+            generator: Ninja
+            packages: gcc g++
+          - platform: linux-x86
+            runner: ubuntu-latest
+            generator: Ninja
+            cxxflags: "-m32"
+            packages: gcc-multilib g++-multilib
+          - platform: linux-arm64
+            runner: ubuntu-24.04-arm
+            generator: Ninja
+            packages: gcc g++
+          - platform: windows-x86_64
+            runner: windows-latest
+            generator: Visual Studio 17 2022
+          - platform: macos-arm64
+            runner: macos-14
+            generator: Ninja
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build ${{ matrix.packages }}
+
+      - name: Configure
+        shell: bash
+        run: |
+          if [[ "${{ matrix.compiler }}" == "msvc" ]]; then
+            cmake -S . -B build -G "${{ matrix.generator }}" \
+              -DOE_SHARED=OFF -DCMAKE_BUILD_TYPE=Debug
+          elif [[ "${{ matrix.platform }}" == "windows-x86_64" && "${{ matrix.compiler }}" == "clang" ]]; then
+            cmake -S . -B build -G "${{ matrix.generator }}" -T ClangCL \
+              -DOE_SHARED=OFF -DCMAKE_BUILD_TYPE=Debug
+          else
+            if [[ "${{ matrix.compiler }}" == "clang" ]]; then
+              cc=clang
+              cxx=clang++
+            else
+              cc=gcc
+              cxx=g++
+            fi
+            CC="$cc" CXX="$cxx" cmake -S . -B build \
+              -G "${{ matrix.generator }}" -DOE_SHARED=OFF \
+              -DCMAKE_BUILD_TYPE=Debug \
+              -DCMAKE_CXX_FLAGS="${{ matrix.cxxflags }}"
+          fi
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: Test with CTest
+        shell: bash
+        run: |
+          set -o pipefail
+          ctest --test-dir build --output-on-failure --output-junit test-results.xml 2>&1 | tee ctest.log
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ctest-${{ matrix.name }}
+          path: |
+            test-results.xml
+            ctest.log
+          if-no-files-found: warn
+
+  coverage:
+    name: Linux coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install coverage tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build gcc g++ gcovr
+      - name: Configure and build
+        run: |
+          cmake -S . -B build -G Ninja -DOE_SHARED=OFF \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS="--coverage"
+          cmake --build build --parallel
+      - name: Run tests and collect coverage
+        run: |
+          set -o pipefail
+          ctest --test-dir build --output-on-failure 2>&1 | tee ctest-coverage.log
+          gcovr --root . --object-directory build \
+            --xml-pretty --output coverage.xml \
+            --html-details coverage.html \
+            --print-summary \
+            --fail-under-line 50
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-linux-x86_64
+          path: |
+            coverage.xml
+            coverage.html
+            coverage*.html
+            ctest-coverage.log
+          if-no-files-found: warn
+
+  fuzz:
+    name: Linux libFuzzer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Clang
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build
+      - name: Configure and build fuzzer
+        run: |
+          CC=clang CXX=clang++ cmake -S . -B build -G Ninja \
+            -DOE_SHARED=OFF -DOE_BUILD_FUZZERS=ON \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo
+          cmake --build build --target oe_fuzz_types --parallel
+      - name: Fuzz
+        run: |
+          mkdir -p fuzz-corpus
+          ./build/oe_fuzz_types fuzz-corpus \
+            -artifact_prefix=fuzz-artifact/ \
+            -max_total_time=60 2>&1 | tee fuzz.log
+      - name: Upload fuzz results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fuzz-linux-x86_64
+          path: |
+            fuzz.log
+            fuzz-artifact
+            fuzz-corpus
+          if-no-files-found: warn
+
+  big-endian:
+    name: Linux s390x big-endian
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test under QEMU
+        uses: uraimo/run-on-arch-action@v3
+        with:
+          arch: s390x
+          distro: ubuntu_latest
+          githubToken: ${{ github.token }}
+          install: |
+            apt-get update -q -y
+            apt-get install -q -y cmake ninja-build g++ git
+          dockerRunArgs: |
+            --volume "${PWD}:/workspace"
+          shell: /bin/bash
+          run: |
+            set -o pipefail
+            cd /workspace
+            cmake -S . -B build -G Ninja -DOE_SHARED=OFF -DCMAKE_BUILD_TYPE=Debug
+            cmake --build build --parallel
+            ctest --test-dir build --output-on-failure 2>&1 | tee ctest-s390x.log
+      - name: Upload big-endian results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ctest-linux-s390x-big-endian
+          path: ctest-s390x.log
+          if-no-files-found: warn

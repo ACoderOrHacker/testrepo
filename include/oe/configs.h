@@ -11,7 +11,7 @@
  *
  * For example, you need to import `oe.contracts`. You can enable this switch
  * (by adding -DOE_ENABLE_EXCEPTION_SUPPORTS=ON in cmake) and load it:
- * @code{.cpp}
+ * @code {.cpp}
  * // Enabled OE_ENABLE_EXCEPTION_SUPPORTS
  * import oe.contracts;
  * import maybe_thrown; // The example code. Contains a function that maybe
@@ -25,7 +25,7 @@
  *
  * But you can also load it without the switch:
  *
- * @code{.cpp}
+ * @code {.cpp}
  * // Disabled OE_ENABLE_EXCEPTION_SUPPORTS
  * import oe.contracts.exception_assertions; // Load it directly.
  * import maybe_thrown; // The example code. Contains a function that maybe
@@ -50,7 +50,7 @@
 #define OE_DEBUG_MODE 0
 
 /**
- * @def OE_RELEASE_MODE
+ * @def OE_DEBUG_MODE
  * @brief A tag for the debug mode.
  * @see OE_BUILD_MODE
  */
@@ -63,7 +63,7 @@
  * 0 if the build mode is release,
  * 1 if the build mode is debug.
  */
-#    define OE_IS_DEBUG 0
+#define OE_IS_DEBUG 0
 
 /**
  * @def OE_BUILD_MODE
@@ -74,7 +74,7 @@
  * @see OE_RELEASE_MODE
  * @see OE_DEBUG_MODE
  */
-#    define OE_BUILD_MODE OE_RELEASE_MODE
+#define OE_BUILD_MODE OE_RELEASE_MODE
 #else
 /**
  * @def OE_IS_DEBUG
@@ -82,7 +82,7 @@
  * 0 if the build mode is release,
  * 1 if the build mode is debug.
  */
-#    define OE_IS_DEBUG 1
+#define OE_IS_DEBUG 1
 
 /**
  * @def OE_BUILD_MODE
@@ -93,7 +93,7 @@
  * @see OE_RELEASE_MODE
  * @see OE_DEBUG_MODE
  */
-#    define OE_BUILD_MODE OE_DEBUG_MODE
+#define OE_BUILD_MODE OE_DEBUG_MODE
 #endif
 
 #endif

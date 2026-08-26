@@ -4,7 +4,7 @@
  * @details This file detects the language and its standard version for C/C++.
  * Usually, it's C++ used, but C is also supported.
  * Usage:
- * @code{.cpp}
+ * @code {.cpp}
  * #ifdef OE_LANGUAGE_TYPE_CPP
  * // C++ Code
  * #if OE_CPP_STANDARD >= OE_CPP23_ID
@@ -29,29 +29,29 @@
  * @def OE_LANGUAGE_TYPE
  * @brief Defines the language type string for C++.
  */
-#    define OE_LANGUAGE_TYPE "C++"
+#define OE_LANGUAGE_TYPE "C++"
 
 /**
  * @def OE_LANGUAGE_TYPE_CPP
  * @brief Defines the language type for C++.
  * Defines if the current language is C++ but not C.
  */
-#    define OE_LANGUAGE_TYPE_CPP
+#define OE_LANGUAGE_TYPE_CPP
 
-#    ifdef _MSVC_LANG // MSVC Defines it but not __cplusplus
+#ifdef _MSVC_LANG // MSVC Defines it but not __cplusplus
 /**
  * @def OE_LANGUAGE_VERSION
  * @brief Defines the language standard for C++.
  */
-#        define OE_CPP_STANDARD _MSVC_LANG
-#    else
+#define OE_CPP_STANDARD _MSVC_LANG
+#else
 /**
  * @define OE_CPP_STANDARD
  * @brief Defines the language standard for C++
  *
  */
-#        define OE_CPP_STANDARD __cplusplus
-#    endif
+#define OE_CPP_STANDARD __cplusplus
+#endif
 
 /**
  * @def OE_CPP26_ID
@@ -62,7 +62,7 @@
  * Maybe changed.
  * @see OE_CPP_STANDARD
  */
-#    define OE_CPP26_ID 202603L
+#define OE_CPP26_ID 202603L
 
 /**
  * @def OE_CPP23_ID
@@ -70,7 +70,7 @@
  * Compared with OE_CPP_STANDARD.
  * @see OE_CPP_STANDARD
  */
-#    define OE_CPP23_ID 202302L
+#define OE_CPP23_ID 202302L
 
 /**
  * @def OE_CPP20_ID
@@ -78,7 +78,7 @@
  * Compared with OE_CPP_STANDARD.
  * @see OE_CPP_STANDARD
  */
-#    define OE_CPP20_ID 202002L
+#define OE_CPP20_ID 202002L
 
 /**
  * @def OE_CPP17_ID
@@ -86,7 +86,7 @@
  * Compared with OE_CPP_STANDARD.
  * @see OE_CPP_STANDARD
  */
-#    define OE_CPP17_ID 201703L
+#define OE_CPP17_ID 201703L
 
 /**
  * @def OE_CPP14_ID
@@ -94,7 +94,7 @@
  * Compared with OE_CPP_STANDARD.
  * @see OE_CPP_STANDARD
  */
-#    define OE_CPP14_ID 201402L
+#define OE_CPP14_ID 201402L
 
 /**
  * @def OE_CPP11_ID
@@ -102,7 +102,7 @@
  * Compared with OE_CPP_STANDARD.
  * @see OE_CPP_STANDARD
  */
-#    define OE_CPP11_ID 201103L
+#define OE_CPP11_ID 201103L
 
 /**
  * @def OE_CPP03_ID
@@ -110,7 +110,7 @@
  * Compared with OE_CPP_STANDARD.
  * @see OE_CPP_STANDARD
  */
-#    define OE_CPP03_ID 200301L
+#define OE_CPP03_ID 200301L
 
 /**
  * @def OE_CPP98_ID
@@ -118,26 +118,26 @@
  * Compared with OE_CPP_STANDARD.
  * @see OE_CPP_STANDARD
  */
-#    define OE_CPP98_ID 199801L
+#define OE_CPP98_ID 199801L
 
 #elif defined(__STDC_VERSION__)
 /**
  * @def OE_LANGUAGE_TYPE
  * @brief Defines the language type string for C.
  */
-#    define OE_LANGUAGE_TYPE "C"
+#define OE_LANGUAGE_TYPE "C"
 
 /**
  * @def OE_LANGUAGE_TYPE_C
  * @brief Defines the language type for C.
  */
-#    define OE_LANGUAGE_TYPE_C
+#define OE_LANGUAGE_TYPE_C
 
 /**
  * @def OE_C_STANDARD
  * @brief Defines the C standard version.
  */
-#    define OE_C_STANDARD __STDC_VERSION__
+#define OE_C_STANDARD __STDC_VERSION__
 
 /**
  * @def OE_C23_ID
@@ -145,7 +145,7 @@
  * Compared with OE_C_STANDARD.
  * @see OE_C_STANDARD
  */
-#    define OE_C23_ID 202311L
+#define OE_C23_ID 202311L
 
 /**
  * @def OE_C17_ID
@@ -153,7 +153,7 @@
  * Compared with OE_C_STANDARD.
  * @see OE_C_STANDARD
  */
-#    define OE_C17_ID 201710L
+#define OE_C17_ID 201710L
 
 /**
  * @def OE_C11_ID
@@ -161,7 +161,7 @@
  * Compared with OE_C_STANDARD.
  * @see OE_C_STANDARD
  */
-#    define OE_C11_ID 201112L
+#define OE_C11_ID 201112L
 
 /**
  * @def OE_C99_ID
@@ -169,7 +169,7 @@
  * Compared with OE_C_STANDARD.
  * @see OE_C_STANDARD
  */
-#    define OE_C99_ID 199901L
+#define OE_C99_ID 199901L
 
 #endif
 

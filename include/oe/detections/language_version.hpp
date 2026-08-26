@@ -4,7 +4,7 @@
  * @details This file detects the language and its standard version for C/C++.
  * Usually, it's C++ used, but C is also supported.
  * Usage:
- * @code{.cpp}
+ * @code {.cpp}
  * #ifdef OE_LANGUAGE_TYPE_CPP
  * // C++ Code
  * #if OE_CPP_STANDARD >= OE_CPP23_ID

@@ -7,10 +7,10 @@ on:
 
 jobs:
   stale:
-    name: 🧹 Clean up stale issues and PRs
+    name: Clean up stale issues and PRs
     runs-on: ubuntu-latest
     steps:
-      - name: 🚀 Run stale
+      - name: Run stale
         uses: actions/stale@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,165 @@
+name: D CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master, dev]
+    paths-ignore:
+      - "src/**"
+      - "include/**"
+      - "tests/**.cpp"
+      - "benchmarks/**.cpp"
+      - "cmake/**"
+      - "CMakeLists.txt"
+      - "docs/**"
+      - "README.md"
+      - "CONTRIBUTING.md"
+      - "LICENSE"
+      - "SECURITY.md"
+      - "zensical.toml"
+  pull_request:
+    branches: [master, dev]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: ${{ matrix.platform }} / ${{ matrix.compiler }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [linux-x86_64, linux-x86, linux-arm64, windows-x86_64, macos-arm64]
+        compiler: [dmd-latest, ldc-latest, gdc-latest]
+        exclude:
+          - platform: linux-x86
+            compiler: dmd-latest
+          - platform: linux-x86
+            compiler: gdc-latest
+          - platform: linux-arm64
+            compiler: dmd-latest
+          - platform: linux-arm64
+            compiler: gdc-latest
+          - platform: windows-x86_64
+            compiler: gdc-latest
+          - platform: macos-arm64
+            compiler: gdc-latest
+        include:
+          - platform: linux-x86_64
+            runner: ubuntu-latest
+            arch: x86_64
+          - platform: linux-x86
+            runner: ubuntu-latest
+            arch: x86
+          - platform: linux-arm64
+            runner: ubuntu-24.04-arm
+            arch: arm64
+          - platform: windows-x86_64
+            runner: windows-latest
+            arch: x86_64
+          - platform: macos-arm64
+            runner: macos-14
+            arch: arm64
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install D compiler
+        uses: dlang-community/setup-dlang@v2
+        with:
+          compiler: ${{ matrix.compiler }}
+
+      - name: Run unit-threaded tests
+        shell: bash
+        run: |
+          set -o pipefail
+          dub test -c unittest --compiler="$DC" --arch="${{ matrix.arch }}" 2>&1 | tee test.log
+
+      - name: Run unit-threaded tests with coverage
+        if: runner.os == 'Linux' && matrix.arch == 'x86_64' && matrix.compiler != 'gdc-latest'
+        shell: bash
+        run: |
+          set -o pipefail
+          dub test -c unittest --compiler="$DC" --coverage 2>&1 | tee coverage.log
+          project_lst="tests-test.lst"
+          test -f "$project_lst"
+          total="$(grep -cE '^[[:space:]]*[0-9]+\|' "$project_lst")"
+          covered="$(grep -cE '^[[:space:]]*[1-9][0-9]*\|' "$project_lst")"
+          test "$total" -gt 0
+          coverage=$((covered * 100 / total))
+          printf 'D test.d line coverage: %s%% (minimum: 80%%)\n' "$coverage"
+          test "$coverage" -ge 80
+
+      - name: Upload D test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: d-tests-${{ matrix.name }}
+          path: |
+            test.log
+            coverage.log
+            "*.lst"
+            trace.log
+          if-no-files-found: warn
+
+  fuzz:
+    name: Linux D libFuzzer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install LDC and Clang
+        uses: dlang-community/setup-dlang@v2
+        with:
+          compiler: ldc-latest
+      - name: Build fuzz target
+        shell: bash
+        run: |
+          set -o pipefail
+          ldc2 -O2 -g -fsanitize=fuzzer,address \
+            -of=fuzz-d tests/fuzz.d
+      - name: Fuzz
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p fuzz-corpus
+          ./fuzz-d fuzz-corpus -artifact_prefix=fuzz-artifact/ \
+            -max_total_time=60 2>&1 | tee fuzz.log
+      - name: Upload D fuzz results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: d-fuzz-linux-x86_64
+          path: |
+            fuzz.log
+            fuzz-artifact
+            fuzz-corpus
+          if-no-files-found: warn
+
+  big-endian:
+    name: Linux s390x big-endian / LDC
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test under QEMU
+        uses: uraimo/run-on-arch-action@v3
+        with:
+          arch: s390x
+          distro: ubuntu_latest
+          githubToken: ${{ github.token }}
+          install: |
+            apt-get update -q -y
+            apt-get install -q -y curl ca-certificates ldc dub
+          dockerRunArgs: |
+            --volume "${PWD}:/workspace"
+          shell: /bin/bash
+          run: |
+            set -o pipefail
+            cd /workspace
+            dub test -c unittest --compiler=ldc2 2>&1 | tee d-test-s390x.log
+      - name: Upload big-endian D results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: d-tests-linux-s390x-big-endian
+          path: d-test-s390x.log
+          if-no-files-found: warn

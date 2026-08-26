@@ -51,6 +51,13 @@ update-version = {
     }
 }
 
+changelog = {
+    inline = true,
+    run = {
+        plugin = "changelog:generate"
+    }
+}
+
 
 [requirements]
 cmake = ">=3.28"
@@ -77,3 +84,5 @@ autorelease = { }
 autoversion = { }
 changelog = { }
 git = { }
+cmake = { }
+zensical = { }
