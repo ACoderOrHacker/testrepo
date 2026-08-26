@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.2.0](https://github.com/ACoderOrHacker/OE/compare/df1dad0efba464de57ec0b81b671bb48c8833374..v0.2.0) - 2026-08-26
+#### Features
+- update - ([4a8fe9a](https://github.com/ACoderOrHacker/OE/commit/4a8fe9ad454d2ad2ea1b1a6ee7272c629705e226)) - [@ACoderOrHacker](https://github.com/ACoderOrHacker)
+- wtfupdate - ([df1dad0](https://github.com/ACoderOrHacker/OE/commit/df1dad0efba464de57ec0b81b671bb48c8833374)) - [@ACoderOrHacker](https://github.com/ACoderOrHacker)
+
+- - -
+
 ## [v0.1.0](https://github.com/ACoderOrHacker/OE/compare/8a6b25d18f70e46ce5dc5975b0e364741b93db52..v0.1.0) - 2026-08-26
 #### Features
 - update2 - ([25f95b4](https://github.com/ACoderOrHacker/OE/commit/25f95b4389078d4271a17e7e014e3ed6593c877f)) - [@ACoderOrHacker](https://github.com/ACoderOrHacker)
