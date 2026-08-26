@@ -12,6 +12,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     env:
       VERSION: 7.0.0
     steps:
