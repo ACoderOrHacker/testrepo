@@ -42,3 +42,4 @@ include/oe/oe/configs.h
 
 /cmake-build-debug/
 /node_modules/
+/Testing/

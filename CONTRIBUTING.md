@@ -1,6 +1,6 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+See [our documentation](https://ACoderOrHacker.github.io/OE) for contributing:
 
 Please note we have a [code of conduct](CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 

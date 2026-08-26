@@ -12,6 +12,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-22.04
+    env:
+      VERSION: 7.0.0
     steps:
       - name: Perform release
         uses: actions/checkout@v3
