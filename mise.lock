@@ -226,9 +226,9 @@ checksum = "sha256:ccad51092774a70b0e44b60e27376592b8cb80be65899b18e939da02d5435
 url = "https://conda.anaconda.org/conda-forge/osx-arm64/libclang-cpp22.1-22.1.8-default_h79071a4_9.conda"
 checksum = "sha256:dee9afef1b1e45bb2fa7fed485d095e3184a34cc06697ca3df7b46b5cb618f7b"
 
-[conda-packages.macos-arm64."libcxx-22.1.8-h55c6f16_0"]
-url = "https://conda.anaconda.org/conda-forge/osx-arm64/libcxx-22.1.8-h55c6f16_0.conda"
-checksum = "sha256:a2e7abab5add9750fab064c024394de48e49f97631c605ad5db5c8ac3fc769ef"
+[conda-packages.macos-arm64."libcxx-23.1.0-h55c6f16_0"]
+url = "https://conda.anaconda.org/conda-forge/osx-arm64/libcxx-23.1.0-h55c6f16_0.conda"
+checksum = "sha256:d3e5f0b767964af25ef81edffc002f8e822b1a5c55330da1ae3a857f70c4e4ee"
 
 [conda-packages.macos-arm64."libiconv-1.18-he4c29f2_3"]
 url = "https://conda.anaconda.org/conda-forge/osx-arm64/libiconv-1.18-he4c29f2_3.conda"
@@ -266,9 +266,9 @@ checksum = "sha256:2c4e43a12eb4e75a508b2519e31b50af1cb2517627c643a5477753c68bcab
 url = "https://conda.anaconda.org/conda-forge/osx-64/libclang-cpp22.1-22.1.8-default_h6e863b9_9.conda"
 checksum = "sha256:8cc264d5bceb378d94acaf34e6a45a439a3e5083dd7df07fb2d6e08b98021458"
 
-[conda-packages.macos-x64."libcxx-22.1.8-h19cb2f5_0"]
-url = "https://conda.anaconda.org/conda-forge/osx-64/libcxx-22.1.8-h19cb2f5_0.conda"
-checksum = "sha256:57ee997f1f800cf38abc743c0f0a9ddfe6a101c697c35510452ce6f4ddf96361"
+[conda-packages.macos-x64."libcxx-23.1.0-h19cb2f5_0"]
+url = "https://conda.anaconda.org/conda-forge/osx-64/libcxx-23.1.0-h19cb2f5_0.conda"
+checksum = "sha256:da5b60cbdaf8d931e2534f3b17a0d9b5432ebc855509d36618d61a61f1f2909d"
 
 [conda-packages.macos-x64."libiconv-1.18-h4ae439b_3"]
 url = "https://conda.anaconda.org/conda-forge/osx-64/libiconv-1.18-h4ae439b_3.conda"
@@ -322,9 +322,9 @@ checksum = "sha256:a83e9adcf7c50f20289dc6890707c8e4e84151b4204b0f734499813880745
 url = "https://conda.anaconda.org/conda-forge/win-64/libzlib-1.3.2-hfd05255_3.conda"
 checksum = "sha256:0629c2cc0404d3bb29d6baa7b4ba62da80797015e86de050db81ea5a07050527"
 
-[conda-packages.windows-x64."llvm-openmp-22.1.8-h4fa8253_1"]
-url = "https://conda.anaconda.org/conda-forge/win-64/llvm-openmp-22.1.8-h4fa8253_1.conda"
-checksum = "sha256:41a804136fdade8cfa9db006f3c41cac1199a387e609c465d779cef271fda85e"
+[conda-packages.windows-x64."llvm-openmp-23.1.0-h49e36cd_0"]
+url = "https://conda.anaconda.org/conda-forge/win-64/llvm-openmp-23.1.0-h49e36cd_0.conda"
+checksum = "sha256:f9658ec83a6744f38e2b8188c76e1c2dea2614f5aa0e14d9d274b19f60646b8c"
 
 [conda-packages.windows-x64."ucrt-10.0.26100.0-h57928b3_0"]
 url = "https://conda.anaconda.org/conda-forge/win-64/ucrt-10.0.26100.0-h57928b3_0.conda"
@@ -483,9 +483,9 @@ conda_deps = [
 checksum = "sha256:51cd4b12d448b7ea2f727e3f01edfca5306af8cb4a0fe0604ec912fd58eef20a"
 url = "https://conda.anaconda.org/conda-forge/osx-arm64/clang-format-22.1.8-default_h3966780_9.conda"
 conda_deps = [
-    "libcxx-22.1.8-h55c6f16_0",
     "clang-format-22-22.1.8-default_h79071a4_9",
     "libclang-cpp22.1-22.1.8-default_h79071a4_9",
+    "libcxx-23.1.0-h55c6f16_0",
     "libzlib-1.3.2-h8088a28_3",
     "zstd-1.5.7-hf451053_7",
     "libxml2-2.15.3-heed7d32_1",
@@ -499,9 +499,9 @@ conda_deps = [
 checksum = "sha256:040e08a0c6c279642643e02914c3f0716f7276fe7ea0b0eae9136f1c86e788a3"
 url = "https://conda.anaconda.org/conda-forge/osx-64/clang-format-22.1.8-default_hcc21508_9.conda"
 conda_deps = [
-    "libcxx-22.1.8-h19cb2f5_0",
     "clang-format-22-22.1.8-default_h6e863b9_9",
     "libclang-cpp22.1-22.1.8-default_h6e863b9_9",
+    "libcxx-23.1.0-h19cb2f5_0",
     "libzlib-1.3.2-hbb4bfdb_3",
     "libxml2-2.15.3-h0712280_1",
     "libxml2-16-2.15.3-h0d7f165_1",
@@ -519,9 +519,9 @@ conda_deps = [
     "vc14_runtime-14.51.36247-habf1de7_41",
     "vcomp14-14.51.36247-habf1de7_41",
     "ucrt-10.0.26100.0-h57928b3_0",
-    "llvm-openmp-22.1.8-h4fa8253_1",
-    "libzlib-1.3.2-hfd05255_3",
+    "llvm-openmp-23.1.0-h49e36cd_0",
     "zstd-1.5.7-h534d264_7",
+    "libzlib-1.3.2-hfd05255_3",
     "libxml2-2.15.3-h8ef44ab_1",
     "libxml2-16-2.15.3-h3cfd58e_1",
     "icu-78.3-h5112557_2",
@@ -686,6 +686,14 @@ url_api = "https://api.github.com/repos/jdx/hk/releases/assets/525632118"
 version = "1.7.0"
 backend = "pipx:cmakefmt"
 specifiers = ["latest"]
+
+[[tools."pipx:zensical"]]
+version = "0.0.57"
+backend = "pipx:zensical"
+specifiers = ["0.0.57"]
+
+[tools."pipx:zensical".options]
+uvx_args = "--with git+https://github.com/squidfunk/mike.git --with catppuccin-zensical"
 
 [[tools.pkl]]
 version = "0.32.1"
