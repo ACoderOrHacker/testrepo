@@ -73,7 +73,7 @@ jobs:
       - name: Setup C++ compiler
         uses: aminya/setup-cpp@v1.8.0
         with:
-          compiler: ${{ matrix.compiler == 'msvc' && 'msvc-14.44' || matrix.compiler == 'clang' && 'llvm-18' || 'gcc-16' }}
+          compiler: ${{ matrix.compiler == 'msvc' && 'msvc-14.44' || matrix.compiler == 'clang' && 'llvm-22' || 'gcc-16' }}
           vcvarsall: true
 
       - name: Install dependencies

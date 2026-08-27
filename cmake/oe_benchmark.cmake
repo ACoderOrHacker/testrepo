@@ -4,16 +4,21 @@
 include(${CMAKE_CURRENT_LIST_DIR}/CPM.cmake)
 
 set(BENCHMARK_ENABLE_WERROR OFF CACHE BOOL "" FORCE)
+set(BENCHMARK_FORCE_WERROR OFF CACHE BOOL "" FORCE)
 CPMAddPackage(
         NAME benchmark
         GITHUB_REPOSITORY google/benchmark
         VERSION 1.9.5
-        OPTIONS "BENCHMARK_ENABLE_TESTING OFF" "BENCHMARK_ENABLE_WERROR OFF"
+        OPTIONS
+        "BENCHMARK_ENABLE_TESTING OFF"
+        "BENCHMARK_ENABLE_WERROR OFF"
+        "BENCHMARK_FORCE_WERROR OFF"
 )
 
 if (TARGET benchmark)
     target_compile_options(benchmark PRIVATE
             $<$<COMPILE_LANG_AND_ID:CXX,Clang,GNU>:-Wno-error>
+            $<$<COMPILE_LANG_AND_ID:CXX,Clang,GNU>:-Wno-sign-conversion>
     )
 endif ()
 
