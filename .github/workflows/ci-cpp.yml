@@ -59,7 +59,7 @@ jobs:
             packages: gcc g++
           - platform: windows-x86_64
             runner: windows-latest
-            generator: Visual Studio 17 2022
+            generator: Ninja
           - platform: macos-arm64
             runner: macos-14
             generator: Ninja
@@ -70,6 +70,10 @@ jobs:
       - name: Install MSVC
         if: runner.os == 'Windows'
         uses: ilammy/msvc-dev-cmd@v1
+        with:
+          vsversion: "18.0"
+          toolset: 14.51
+          arch: x64
 
       - name: Install Clang
         if: matrix.compiler == 'clang' && runner.os == 'Linux'
@@ -118,12 +122,12 @@ jobs:
         run: |
           rm -rf build
           if [[ "${{ matrix.compiler }}" == "msvc" ]]; then
-            cmake -S . -B build -G "${{ matrix.generator }}" \
+            cmake -S . -B build -G "Visual Studio 18 2026" -T v145 \
               -DOE_ENABLE_TESTING=ON \
               -DCMAKE_BUILD_TYPE=Debug \
               -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl
           elif [[ "${{ matrix.platform }}" == "windows-x86_64" && "${{ matrix.compiler }}" == "clang" ]]; then
-            cmake -S . -B build -G "${{ matrix.generator }}" -T ClangCL \
+            cmake -S . -B build -G Ninja \
               -DOE_ENABLE_TESTING=ON \
               -DCMAKE_BUILD_TYPE=Debug \
               -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl
