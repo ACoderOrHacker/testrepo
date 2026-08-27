@@ -22,7 +22,7 @@ oe_library(meta
         DEPS base
 )
 oe_library(types
-        DEPS base meta
+        DEPS base
 )
 oe_library(iterator
         DEPS meta types
@@ -57,6 +57,13 @@ if (OE_ENABLE_BENCHMARKS)
 
     # Include oe_benchmark to define a benchmark instance
     include(cmake/oe_benchmark.cmake)
+
+    add_executable(oe_benchmarks benchmarks/benchmarks.cpp)
+    target_link_libraries(oe_benchmarks PRIVATE benchmark::benchmark)
+    set_target_properties(oe_benchmarks PROPERTIES
+            CXX_STANDARD 20
+            CXX_STANDARD_REQUIRED ON
+    )
 endif ()
 
 # Fuzzing

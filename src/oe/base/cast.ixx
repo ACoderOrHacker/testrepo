@@ -60,6 +60,6 @@ template <typename T> constexpr OE_API T&& forward(remove_reference_t<T>&& val) 
  * @return The converted xvalue.
  */
 template <typename T> constexpr OE_API remove_reference_t<T>&& to_xvalue(T&& val) noexcept {
-    return cast<remove_reference_t<T>&&>(val);
+    return static_cast<remove_reference_t<T>&&>(val);
 }
 } // namespace oe::base

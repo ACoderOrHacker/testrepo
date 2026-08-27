@@ -31,6 +31,8 @@ jobs:
         exclude:
           - platform: linux-arm64
             compiler: msvc
+          - platform: linux-x86_64
+            compiler: msvc
           - platform: linux-x86
             compiler: clang
           - platform: linux-x86
@@ -113,12 +115,12 @@ jobs:
           rm -rf build
           if [[ "${{ matrix.compiler }}" == "msvc" ]]; then
             cmake -S . -B build -G "${{ matrix.generator }}" \
-              -DOE_SHARED=OFF -DOE_ENABLE_TESTING=ON \
+              -DOE_ENABLE_TESTING=ON \
               -DCMAKE_BUILD_TYPE=Debug \
               -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl
           elif [[ "${{ matrix.platform }}" == "windows-x86_64" && "${{ matrix.compiler }}" == "clang" ]]; then
             cmake -S . -B build -G "${{ matrix.generator }}" -T ClangCL \
-              -DOE_SHARED=OFF -DOE_ENABLE_TESTING=ON \
+              -DOE_ENABLE_TESTING=ON \
               -DCMAKE_BUILD_TYPE=Debug \
               -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl
           else
@@ -130,7 +132,7 @@ jobs:
               cxx=g++
             fi
             CC="$cc" CXX="$cxx" cmake -S . -B build \
-              -G "${{ matrix.generator }}" -DOE_SHARED=OFF \
+              -G "${{ matrix.generator }}" \
               -DOE_ENABLE_TESTING=ON \
               -DCMAKE_BUILD_TYPE=Debug \
               -DCMAKE_C_COMPILER="$CC" -DCMAKE_CXX_COMPILER="$CXX" \
@@ -167,7 +169,7 @@ jobs:
           sudo apt-get install -y cmake ninja-build gcc-14 g++-14 gcovr
       - name: Configure and build
         run: |
-          cmake -S . -B build -G Ninja -DOE_SHARED=OFF \
+          cmake -S . -B build -G Ninja \
             -DOE_ENABLE_TESTING=ON \
             -DCMAKE_BUILD_TYPE=Debug \
             -DCMAKE_C_COMPILER=gcc-14 -DCMAKE_CXX_COMPILER=g++-14 \
@@ -207,7 +209,7 @@ jobs:
         run: |
           rm -rf build
           CC=clang CXX=clang++ cmake -S . -B build -G Ninja \
-            -DOE_SHARED=OFF -DOE_ENABLE_FUZZING=ON \
+            -DOE_ENABLE_FUZZING=ON \
             -DCMAKE_BUILD_TYPE=RelWithDebInfo
           cmake --build build --target types_fuzz --parallel
       - name: Fuzz
@@ -247,7 +249,7 @@ jobs:
           run: |
             set -o pipefail
             cd /workspace
-            cmake -S . -B build -G Ninja -DOE_SHARED=OFF \
+            cmake -S . -B build -G Ninja \
               -DOE_ENABLE_TESTING=ON -DCMAKE_BUILD_TYPE=Debug \
               -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
             cmake --build build --parallel

@@ -76,7 +76,7 @@ jobs:
           dub test -c unittest --compiler="$DC" --arch="${{ matrix.arch }}" 2>&1 | tee test.log
 
       - name: Run unit-threaded tests with coverage
-        if: runner.os == 'Linux' && matrix.arch == 'x86_64' && matrix.compiler != 'gdc-latest'
+        if: runner.os == 'Linux' && matrix.arch == 'x86_64' && matrix.compiler != 'gdc-12'
         shell: bash
         run: |
           set -o pipefail
