@@ -22,6 +22,25 @@ if (TARGET benchmark)
     )
 endif ()
 
+if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/benchmarks/benchmarks.cpp")
+    add_executable(oe_benchmarks
+            "${CMAKE_CURRENT_SOURCE_DIR}/benchmarks/benchmarks.cpp"
+    )
+    target_link_libraries(oe_benchmarks
+            PRIVATE
+            benchmark::benchmark
+    )
+    target_include_directories(oe_benchmarks
+            PRIVATE
+            "${CMAKE_CURRENT_SOURCE_DIR}/include"
+            "${CMAKE_CURRENT_SOURCE_DIR}/benchmarks"
+    )
+    set_target_properties(oe_benchmarks PROPERTIES
+            CXX_STANDARD 20
+            CXX_STANDARD_REQUIRED ON
+    )
+endif ()
+
 # ============================================
 # Function to define the benchmark
 # ============================================

@@ -73,7 +73,7 @@ jobs:
       - name: Setup C++ compiler
         uses: aminya/setup-cpp@v1.8.0
         with:
-          compiler: ${{ matrix.compiler == 'msvc' && 'msvc-14.44' || matrix.compiler == 'clang' && 'llvm-22' || 'gcc-16' }}
+          compiler: ${{ matrix.compiler == 'msvc' && 'msvc-14.42' || matrix.compiler == 'clang' && 'llvm-22' || 'gcc-16' }}
           vcvarsall: true
 
       - name: Install dependencies
@@ -91,7 +91,7 @@ jobs:
         run: |
           rm -rf build
           if [[ "${{ matrix.compiler }}" == "msvc" ]]; then
-            cmake -S . -B build -G "Visual Studio 17 2022" -T v143 \
+            cmake -S . -B build -G "Visual Studio 17 2022" -T "v143,version=14.42" \
               -DOE_ENABLE_TESTING=ON \
               -DCMAKE_BUILD_TYPE=Debug \
               -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl
