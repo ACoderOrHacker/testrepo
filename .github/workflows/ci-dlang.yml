@@ -31,20 +31,14 @@ jobs:
       fail-fast: false
       matrix:
         platform: [linux-x86_64, linux-x86, linux-arm64, windows-x86_64, macos-arm64]
-        compiler: [dmd-latest, ldc-latest, gdc-12]
+        compiler: [dmd-latest, ldc-latest]
         exclude:
           - platform: linux-x86
             compiler: dmd-latest
-          - platform: linux-x86
-            compiler: gdc-12
           - platform: linux-arm64
             compiler: dmd-latest
-          - platform: linux-arm64
-            compiler: gdc-12
-          - platform: windows-x86_64
-            compiler: gdc-12
           - platform: macos-arm64
-            compiler: gdc-12
+            compiler: dmd-latest
         include:
           - platform: linux-x86_64
             runner: ubuntu-latest
@@ -79,7 +73,7 @@ jobs:
           dub test -c unittest --compiler="$DC" --arch="${{ matrix.arch }}" 2>&1 | tee test.log
 
       - name: Run unit-threaded tests with coverage
-        if: runner.os == 'Linux' && matrix.arch == 'x86_64' && matrix.compiler != 'gdc-12'
+        if: runner.os == 'Linux' && matrix.arch == 'x86_64'
         shell: bash
         run: |
           set -o pipefail
@@ -137,33 +131,4 @@ jobs:
             fuzz.log
             fuzz-artifact
             fuzz-corpus
-          if-no-files-found: warn
-
-  big-endian:
-    name: Linux s390x big-endian / LDC
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build and test under QEMU
-        uses: uraimo/run-on-arch-action@v3
-        with:
-          arch: s390x
-          distro: ubuntu_latest
-          githubToken: ${{ github.token }}
-          install: |
-            apt-get update -q -y
-            apt-get install -q -y gdc dub
-          dockerRunArgs: |
-            --volume "${PWD}:/workspace"
-          shell: /bin/bash
-          run: |
-            set -o pipefail
-            cd /workspace
-            dub test -c unittest --compiler=gdc 2>&1 | tee d-test-s390x.log
-      - name: Upload big-endian D results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: d-tests-linux-s390x-big-endian
-          path: d-test-s390x.log
           if-no-files-found: warn

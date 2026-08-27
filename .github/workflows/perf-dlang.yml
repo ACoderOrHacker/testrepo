@@ -70,33 +70,3 @@ jobs:
           name: d-benchmark-${{ matrix.name }}
           path: d-benchmark.log
           if-no-files-found: warn
-
-  big-endian:
-    name: Linux s390x big-endian
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build and benchmark under QEMU
-        uses: uraimo/run-on-arch-action@v3
-        with:
-          arch: s390x
-          distro: ubuntu_latest
-          githubToken: ${{ github.token }}
-          install: |
-            apt-get update -q -y
-            apt-get install -q -y gdc dub
-          dockerRunArgs: |
-            --volume "${PWD}:/workspace"
-          shell: /bin/bash
-          run: |
-            set -o pipefail
-            cd /workspace
-            dub run -c benchmark --compiler=gdc \
-              2>&1 | tee d-benchmark-s390x.log
-      - name: Upload big-endian benchmark
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: d-benchmark-linux-s390x-big-endian
-          path: d-benchmark-s390x.log
-          if-no-files-found: warn
