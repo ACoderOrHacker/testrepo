@@ -52,7 +52,7 @@ jobs:
             runner: ubuntu-latest
             generator: Ninja
             cxxflags: "-m32"
-            packages: gcc-multilib g++-multilib
+            packages: gcc-14-multilib g++-14-multilib libc6-dev-i386
           - platform: linux-arm64
             runner: ubuntu-24.04-arm
             generator: Ninja
@@ -84,7 +84,7 @@ jobs:
 
       - name: Install 32-bit runtime
         if: matrix.platform == 'linux-x86'
-        run: sudo apt-get update && sudo apt-get install -y gcc-multilib g++-multilib
+        run: sudo apt-get update && sudo apt-get install -y lib32gcc-s1 lib32stdc++6
 
       - name: Configure
         shell: bash
@@ -117,7 +117,13 @@ jobs:
           fi
 
       - name: Build
-        run: cmake --build build --parallel
+        shell: bash
+        run: |
+          if [[ "${{ matrix.compiler }}" == "gcc" ]]; then
+            cmake --build build --parallel 1
+          else
+            cmake --build build --parallel
+          fi
 
       - name: Test with CTest
         shell: bash
