@@ -131,7 +131,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          ctest --test-dir build --output-on-failure --output-junit test-results.xml 2>&1 | tee ctest.log
+          ctest --test-dir build -C Debug --output-on-failure --output-junit test-results.xml 2>&1 | tee ctest.log
 
       - name: Upload test results
         if: always()
@@ -170,7 +170,7 @@ jobs:
       - name: Run tests and collect coverage
         run: |
           set -o pipefail
-          ctest --test-dir build --output-on-failure 2>&1 | tee ctest-coverage.log
+          ctest --test-dir build -C Debug --output-on-failure 2>&1 | tee ctest-coverage.log
           gcovr --root . --object-directory build \
             --xml-pretty --output coverage.xml \
             --html-details coverage.html \
