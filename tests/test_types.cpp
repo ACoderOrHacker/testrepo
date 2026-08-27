@@ -48,14 +48,14 @@ TEST(test_types, define_char_ops) {
 }
 
 TEST(test_types, char_traits_concept) {
-    EXPECT_TRUE(oe::is_char_traits_v<oe::char_traits<char>>);
-    EXPECT_TRUE(oe::is_char_traits_v<oe::char_traits<wchar_t>>);
-    EXPECT_TRUE(oe::is_char_traits_v<oe::char_traits<char16_t>>);
-    EXPECT_TRUE(oe::is_char_traits_v<oe::char_traits<char32_t>>);
+    EXPECT_TRUE(oe::is_char_traits<oe::char_traits<char>>);
+    EXPECT_TRUE(oe::is_char_traits<oe::char_traits<wchar_t>>);
+    EXPECT_TRUE(oe::is_char_traits<oe::char_traits<char16_t>>);
+    EXPECT_TRUE(oe::is_char_traits<oe::char_traits<char32_t>>);
 #if OE_CPP_STANDARD >= OE_CPP20_ID
-    EXPECT_TRUE(oe::is_char_traits_v<oe::char_traits<char8_t>>);
+    EXPECT_TRUE(oe::is_char_traits<oe::char_traits<char8_t>>);
 #endif
-    EXPECT_TRUE(oe::is_char_traits_v<oe::char_traits<oe::c8>>);
-    EXPECT_TRUE(oe::is_char_traits_v<oe::char_traits<oe::c16>>);
-    EXPECT_TRUE(oe::is_char_traits_v<oe::char_traits<oe::c32>>);
+    EXPECT_TRUE(oe::is_char_traits<oe::char_traits<oe::c8>>);
+    EXPECT_TRUE(oe::is_char_traits<oe::char_traits<oe::c16>>);
+    EXPECT_TRUE(oe::is_char_traits<oe::char_traits<oe::c32>>);
 }
