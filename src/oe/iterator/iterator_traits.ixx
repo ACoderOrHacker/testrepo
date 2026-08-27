@@ -128,6 +128,46 @@ template <typename IteratorImpl> struct iterator_traits_checker {
                                                 //!< `oe::iterator_traits_accessor`.
 };
 
+template <typename IteratorImpl, bool FromImpl> struct iterator_difference_type;
+template <typename IteratorImpl>
+struct iterator_difference_type<IteratorImpl, true> {
+    using type = typename IteratorImpl::difference_type;
+};
+template <typename IteratorImpl>
+struct iterator_difference_type<IteratorImpl, false> {
+    using type = typename iterator_traits<IteratorImpl>::difference_type;
+};
+
+template <typename IteratorImpl, bool FromImpl> struct iterator_value_type;
+template <typename IteratorImpl>
+struct iterator_value_type<IteratorImpl, true> {
+    using type = typename IteratorImpl::value_type;
+};
+template <typename IteratorImpl>
+struct iterator_value_type<IteratorImpl, false> {
+    using type = typename iterator_traits<IteratorImpl>::value_type;
+};
+
+template <typename IteratorImpl, bool FromImpl> struct iterator_reference_type;
+template <typename IteratorImpl>
+struct iterator_reference_type<IteratorImpl, true> {
+    using type = typename IteratorImpl::reference_type;
+};
+template <typename IteratorImpl>
+struct iterator_reference_type<IteratorImpl, false> {
+    using type = typename iterator_traits<IteratorImpl>::reference_type;
+};
+
+template <typename IteratorImpl, bool FromImpl> struct iterator_kind_value;
+template <typename IteratorImpl>
+struct iterator_kind_value<IteratorImpl, true> {
+    static constexpr iterator_kind value = IteratorImpl::kind;
+};
+template <typename IteratorImpl>
+struct iterator_kind_value<IteratorImpl, false> {
+    static constexpr iterator_kind value = iterator_traits<IteratorImpl>::kind;
+};
+
 /**
  * @brief Accessor for the iterator traits.
  * @warning Don't use `oe::iterator_traits` to access the traits.
@@ -180,23 +220,14 @@ template <typename IteratorImpl> struct iterator_traits_accessor {
                   "`IteratorImpl` to "
                   "fix this issue. And make SURE `kind` is constexpr.");
 
-    using difference_type =
-        oe::conditional_t<iterator_traits_checker<IteratorImpl>::has_difference_type_in_impl,
-                          typename IteratorImpl::difference_type,
-                          typename iterator_traits<IteratorImpl>::difference_type>;
-
+    using difference_type = typename iterator_difference_type<
+        IteratorImpl, iterator_traits_checker<IteratorImpl>::has_difference_type_in_impl>::type;
     using value_type =
-        oe::conditional_t<iterator_traits_checker<IteratorImpl>::has_value_type_in_impl,
-                          typename IteratorImpl::value_type,
-                          typename iterator_traits<IteratorImpl>::value_type>;
-    using reference_type =
-        oe::conditional_t<iterator_traits_checker<IteratorImpl>::has_reference_type_in_impl,
-                          typename IteratorImpl::reference_type,
-                          typename iterator_traits<IteratorImpl>::reference_type>;
+        typename iterator_value_type<IteratorImpl, iterator_traits_checker<IteratorImpl>::has_value_type_in_impl>::type;
+    using reference_type = typename iterator_reference_type<
+        IteratorImpl, iterator_traits_checker<IteratorImpl>::has_reference_type_in_impl>::type;
 
-    constexpr static oe::iterator_kind kind =
-        iterator_traits_checker<IteratorImpl>::has_kind_in_impl
-            ? IteratorImpl::kind
-            : iterator_traits<IteratorImpl>::kind;
+    constexpr static oe::iterator_kind kind = iterator_kind_value<
+        IteratorImpl, iterator_traits_checker<IteratorImpl>::has_kind_in_impl>::value;
 };
 } // namespace oe

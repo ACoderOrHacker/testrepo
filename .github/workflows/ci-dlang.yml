@@ -54,13 +54,13 @@ jobs:
             arch: x86
           - platform: linux-arm64
             runner: ubuntu-24.04-arm
-            arch: arm64
+            arch: aarch64
           - platform: windows-x86_64
             runner: windows-latest
             arch: x86_64
           - platform: macos-arm64
             runner: macos-14
-            arch: arm64
+            arch: aarch64
 
     steps:
       - uses: actions/checkout@v4
@@ -68,6 +68,9 @@ jobs:
         uses: dlang-community/setup-dlang@v2
         with:
           compiler: ${{ matrix.compiler }}
+      - name: Install 32-bit runtime
+        if: runner.os == 'Linux' && matrix.arch == 'x86'
+        run: sudo apt-get update && sudo apt-get install -y gcc-multilib g++-multilib
 
       - name: Run unit-threaded tests
         shell: bash
@@ -122,6 +125,7 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p fuzz-corpus
+          mkdir -p fuzz-artifact
           ./fuzz-d fuzz-corpus -artifact_prefix=fuzz-artifact/ \
             -max_total_time=60 2>&1 | tee fuzz.log
       - name: Upload D fuzz results
@@ -148,14 +152,14 @@ jobs:
           githubToken: ${{ github.token }}
           install: |
             apt-get update -q -y
-            apt-get install -q -y curl ca-certificates ldc dub
+            apt-get install -q -y gdc dub
           dockerRunArgs: |
             --volume "${PWD}:/workspace"
           shell: /bin/bash
           run: |
             set -o pipefail
             cd /workspace
-            dub test -c unittest --compiler=ldc2 2>&1 | tee d-test-s390x.log
+            dub test -c unittest --compiler=gdc 2>&1 | tee d-test-s390x.log
       - name: Upload big-endian D results
         if: always()
         uses: actions/upload-artifact@v4

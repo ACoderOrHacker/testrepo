@@ -8,3 +8,7 @@ export module oe.meta;
 export import oe.base.meta.concepts;
 export import oe.base.meta.traits;
 export import oe.meta.type_sequence;
+
+export namespace oe {
+using namespace oe::base;
+}

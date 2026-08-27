@@ -142,9 +142,15 @@ using std::rank;
 using std::is_base_of;
 using std::is_convertible;
 #if OE_CPP_STANDARD >= OE_CPP20_ID
+#    if defined(__cpp_lib_is_layout_compatible)
 using std::is_layout_compatible;
+#    endif
+#    if defined(__cpp_lib_is_nothrow_convertible)
 using std::is_nothrow_convertible;
+#    endif
+#    if defined(__cpp_lib_is_pointer_interconvertible)
 using std::is_pointer_interconvertible_base_of;
+#    endif
 #endif
 using std::is_same;
 #if OE_CPP_STANDARD >= OE_CPP26_ID
@@ -391,9 +397,15 @@ using std::is_nothrow_invocable_v;
 using std::is_same_v;
 #endif
 #if OE_CPP_STANDARD >= OE_CPP20_ID
+#    if defined(__cpp_lib_is_layout_compatible)
 using std::is_layout_compatible_v;
+#    endif
+#    if defined(__cpp_lib_is_nothrow_convertible)
 using std::is_nothrow_convertible_v;
+#    endif
+#    if defined(__cpp_lib_is_pointer_interconvertible)
 using std::is_pointer_interconvertible_base_of_v;
+#    endif
 #endif
 #if OE_CPP_STANDARD >= OE_CPP26_ID
 using std::is_virtual_base_of_v;

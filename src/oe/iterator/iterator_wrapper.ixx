@@ -163,7 +163,7 @@ concept is_output_iterator = has_iterator_set<T>;
  * @tparam T The iterator type.
  */
 template <typename T>
-concept is_forward_iterator = is_input_iterator<T> && has_iterator_next_n<T>;
+concept is_forward_iterator = is_input_iterator<T>;
 
 /**
  * @concept is_bidirectional_iterator

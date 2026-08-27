@@ -9,3 +9,7 @@
 export module oe.types;
 
 export import oe.base.basic_types;
+
+export namespace oe {
+using namespace oe::base;
+}

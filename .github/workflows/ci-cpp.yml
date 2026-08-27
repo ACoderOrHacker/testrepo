@@ -109,6 +109,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y cmake ninja-build ${{ matrix.packages }}
 
+      - name: Install 32-bit runtime
+        if: matrix.platform == 'linux-x86'
+        run: sudo apt-get update && sudo apt-get install -y gcc-multilib g++-multilib
+
       - name: Configure
         shell: bash
         run: |
@@ -215,6 +219,7 @@ jobs:
       - name: Fuzz
         run: |
           mkdir -p fuzz-corpus
+          mkdir -p fuzz-artifact
           ./build/types_fuzz fuzz-corpus \
             -artifact_prefix=fuzz-artifact/ \
             -max_total_time=60 2>&1 | tee fuzz.log
