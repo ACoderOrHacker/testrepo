@@ -5,5 +5,6 @@
  */
 export module oe.meta;
 
-export import oe.meta.concepts;
-export import oe.meta.traits;
+export import oe.base.meta.concepts;
+export import oe.base.meta.traits;
+export import oe.meta.type_sequence;
