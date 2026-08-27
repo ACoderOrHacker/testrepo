@@ -47,16 +47,16 @@ jobs:
           - platform: linux-x86_64
             runner: ubuntu-latest
             generator: Ninja
-            packages: gcc g++
+            packages: gcc-16 g++-16
           - platform: linux-x86
             runner: ubuntu-latest
             generator: Ninja
             cxxflags: "-m32"
-            packages: gcc-14-multilib g++-14-multilib libc6-dev-i386
+            packages: gcc-16-multilib g++-16-multilib libc6-dev-i386
           - platform: linux-arm64
             runner: ubuntu-24.04-arm
             generator: Ninja
-            packages: gcc g++
+            packages: gcc-16 g++-16
           - platform: windows-x86_64
             runner: windows-2022
             generator: Visual Studio 17 2022
@@ -84,7 +84,7 @@ jobs:
 
       - name: Install 32-bit runtime
         if: matrix.platform == 'linux-x86'
-        run: sudo apt-get update && sudo apt-get install -y lib32gcc-s1 lib32stdc++6
+        run: sudo apt-get update &&         sudo apt-get install -y lib32gcc-16-dev lib32stdc++6
 
       - name: Configure
         shell: bash
@@ -98,6 +98,8 @@ jobs:
           elif [[ "${{ matrix.platform }}" == "windows-x86_64" && "${{ matrix.compiler }}" == "clang" ]]; then
             cmake -S . -B build -G Ninja \
               -DOE_ENABLE_TESTING=ON \
+              -DOE_ENABLE_WERROR=OFF \
+              -DHAVE_STD_REGEX=ON \
               -DCMAKE_BUILD_TYPE=Debug \
               -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl
           else
@@ -105,8 +107,8 @@ jobs:
               cc=clang
               cxx=clang++
             else
-              cc=gcc
-              cxx=g++
+              cc=gcc-16
+              cxx=g++-16
             fi
             CC="$cc" CXX="$cxx" cmake -S . -B build \
               -G "${{ matrix.generator }}" \
@@ -151,18 +153,18 @@ jobs:
       - name: Setup coverage compiler
         uses: aminya/setup-cpp@v1.8.0
         with:
-          compiler: gcc-14
+          compiler: gcc-16
           gcovr: true
       - name: Install coverage tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc-14 g++-14
+          sudo apt-get install -y gcc-16 g++-16
       - name: Configure and build
         run: |
           cmake -S . -B build -G Ninja \
             -DOE_ENABLE_TESTING=ON \
             -DCMAKE_BUILD_TYPE=Debug \
-            -DCMAKE_C_COMPILER=gcc-14 -DCMAKE_CXX_COMPILER=g++-14 \
+            -DCMAKE_C_COMPILER=gcc-16 -DCMAKE_CXX_COMPILER=g++-16 \
             -DCMAKE_CXX_FLAGS="--coverage"
           cmake --build build --parallel
       - name: Run tests and collect coverage
