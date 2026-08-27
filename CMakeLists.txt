@@ -38,6 +38,8 @@ if (OE_ENABLE_TESTING)
     include(cmake/oe_test.cmake)
 
     enable_testing()
+
+    oe_test(types)
 endif ()
 
 # Benchmarks
