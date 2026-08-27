@@ -31,20 +31,20 @@ jobs:
       fail-fast: false
       matrix:
         platform: [linux-x86_64, linux-x86, linux-arm64, windows-x86_64, macos-arm64]
-        compiler: [dmd-latest, ldc-latest, gdc-latest]
+        compiler: [dmd-latest, ldc-latest, gdc-12]
         exclude:
           - platform: linux-x86
             compiler: dmd-latest
           - platform: linux-x86
-            compiler: gdc-latest
+            compiler: gdc-12
           - platform: linux-arm64
             compiler: dmd-latest
           - platform: linux-arm64
-            compiler: gdc-latest
+            compiler: gdc-12
           - platform: windows-x86_64
-            compiler: gdc-latest
+            compiler: gdc-12
           - platform: macos-arm64
-            compiler: gdc-latest
+            compiler: gdc-12
         include:
           - platform: linux-x86_64
             runner: ubuntu-latest
@@ -116,7 +116,7 @@ jobs:
         run: |
           set -o pipefail
           ldc2 -O2 -g -fsanitize=fuzzer,address \
-            -of=fuzz-d tests/fuzz.d
+            -of=fuzz-d fuzzing/fuzz.d
       - name: Fuzz
         shell: bash
         run: |

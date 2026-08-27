@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-node scripts/compiler_detections_generate.js && node scripts/platform_detections_generate.js
-git add include/oe/detections/compiler_detections.h
-git add include/oe/detections/platform_detections.h
-
-npm run format

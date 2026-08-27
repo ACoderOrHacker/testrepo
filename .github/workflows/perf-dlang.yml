@@ -1,4 +1,4 @@
-name: D performance
+name: D Performance
 
 on:
   workflow_dispatch:

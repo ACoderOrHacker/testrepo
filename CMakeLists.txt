@@ -12,6 +12,7 @@ include(cmake/oe_library.cmake)
 
 option(OE_ENABLE_TESTING "Enable testing for OE" OFF)
 option(OE_ENABLE_BENCHMARKS "Enable benchmarks for OE" OFF)
+option(OE_ENABLE_FUZZING "Enable fuzzing for OE" OFF)
 option(OE_ENABLE_WERROR "Enable -Werror for OE targets" ON)
 
 # Targets
@@ -21,7 +22,7 @@ oe_library(meta
         DEPS base
 )
 oe_library(types
-        DEPS base
+        DEPS base meta
 )
 oe_library(iterator
         DEPS meta types
@@ -56,4 +57,13 @@ if (OE_ENABLE_BENCHMARKS)
 
     # Include oe_benchmark to define a benchmark instance
     include(cmake/oe_benchmark.cmake)
+endif ()
+
+# Fuzzing
+
+if (OE_ENABLE_FUZZING)
+    message(STATUS "Enabled fuzzing")
+
+    include(cmake/oe_fuzzing.cmake)
+    oe_fuzz(types)
 endif ()

@@ -24,6 +24,8 @@ jobs:
 
       - name: Cocogitto release
         id: release
+        # Uses this because cocogitto-action@main provides the latest version (7.0.0)
+        # The latest action uses 6.5.0
         uses: cocogitto/cocogitto-action@main
         with:
           command: bump

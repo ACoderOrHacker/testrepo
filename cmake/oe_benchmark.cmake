@@ -1,7 +1,7 @@
 # Benchmarks Framework
 # Using Google Benchmark
 
-include(CPM.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/CPM.cmake)
 
 CPMAddPackage(
         NAME benchmark

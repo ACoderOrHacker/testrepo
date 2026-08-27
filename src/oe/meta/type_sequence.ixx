@@ -14,9 +14,9 @@ template <typename... Types> class type_sequence;
 }
 
 namespace oe::details {
-template <oe::usize I, typename List> struct type_of_impl;
+template <oe::base::usize I, typename List> struct type_of_impl;
 
-template <oe::usize I, typename Head, typename... Tail>
+template <oe::base::usize I, typename Head, typename... Tail>
 struct type_of_impl<I, type_sequence<Head, Tail...>> {
     using type = typename type_of_impl<I - 1, type_sequence<Tail...>>::type;
 };
@@ -41,9 +41,9 @@ export namespace oe {
  * @tparam Types The types that `type_sequence` should contain.
  */
 template <typename... Types> class type_sequence {
-    constexpr static oe::usize size = sizeof...(Types);
+    constexpr static oe::base::usize size = sizeof...(Types);
 
-    template <oe::usize idx> using type_of = details::type_of_impl<idx, type_sequence>::type;
+    template <oe::base::usize idx> using type_of = details::type_of_impl<idx, type_sequence>::type;
 
     // TODO: add `has` implemented by meta foreach
     // TODO: add meta helpers

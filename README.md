@@ -75,8 +75,7 @@ DO NOT USE IT.
 [Xmake](https://xmake.io) is for building.
 
 [DUB](https://dub.pm) is used for publishing in dub (building is also ok).
-You can also use [scripts/install_dub_deps.sh](scripts/install_dub_deps.sh) to install dependencies for DUB and then
-build.
+You can also use [scripts/install_dub_deps.sh](scripts/install_dub_deps.sh) to install dependencies for DUB and then build.
 Every dependency will be installed into `dub_dependencies` before committing.
 
 ## Packing Dependencies
@@ -123,5 +122,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
 This library is under the Apache License 2.0.
 
-The Apache-2.0 license is a permissive open-source license that allows users to freely use, modify, and distribute
-software while providing an express grant of patent rights from contributors to users.
+The Apache-2.0 license is a permissive open-source license that allows users to freely use, modify, and distribute software while providing an express grant of patent rights from contributors to users.

@@ -1,4 +1,4 @@
-name: C++ performance
+name: C++ Performance
 
 on:
   workflow_dispatch:

@@ -1,13 +1,20 @@
 # Tests Frameworks
 # Using GoogleTest
 
-include(CPM.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/CPM.cmake)
 
 CPMAddPackage(
         NAME googletest
         GITHUB_REPOSITORY google/googletest
         VERSION 1.16.0
         OPTIONS "gtest_force_shared_crt ON"
+)
+
+CPMAddPackage(
+        NAME benchmark
+        GITHUB_REPOSITORY google/benchmark
+        VERSION 1.9.5
+        OPTIONS "BENCHMARK_ENABLE_TESTING OFF"
 )
 
 # ============================================
@@ -52,6 +59,7 @@ function(oe_test NAME)
             oe::${NAME} # Link the tested module
             GTest::gtest
             GTest::gmock
+            benchmark::benchmark
     )
 
     if (ARG_USE_GTEST_MAIN)
