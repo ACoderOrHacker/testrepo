@@ -47,6 +47,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Install MSVC
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          vsversion: "2022"
+          toolset: 14.44
+          arch: x64
       - name: Install dependencies
         if: runner.os == 'Linux'
         run: |
@@ -55,10 +62,18 @@ jobs:
       - name: Configure and build
         shell: bash
         run: |
-          cmake -S . -B build -G "${{ matrix.generator }}" \
+          if [[ "${{ matrix.name }}" == "Windows x86_64 little-endian" ]]; then
+            cmake -S . -B build -G "Visual Studio 17 2022" \
+              -T "v143,version=14.44" \
+              -DOE_ENABLE_BENCHMARKS=ON \
+              -DCMAKE_BUILD_TYPE=Release \
+              -DCMAKE_CXX_FLAGS="${{ matrix.flags }}"
+          else
+            cmake -S . -B build -G "${{ matrix.generator }}" \
             -DOE_ENABLE_BENCHMARKS=ON \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_CXX_FLAGS="${{ matrix.flags }}"
+          fi
           cmake --build build --target oe_benchmarks --parallel
       - name: Run benchmark
         shell: bash
