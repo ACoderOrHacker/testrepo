@@ -20,17 +20,7 @@ option(OE_SHARED "Build OE as shared library" OFF)
 # Targets
 
 oe_library(base)
-oe_library(meta
-        DEPS base
-)
 oe_library(types
-        DEPS base
-)
-oe_library(iterator
-        DEPS meta types
-)
-
-oe_library(utilities
         DEPS base
 )
 
@@ -48,8 +38,6 @@ if (OE_ENABLE_TESTING)
     include(cmake/oe_test.cmake)
 
     enable_testing()
-
-    oe_test(iterator)
 endif ()
 
 # Benchmarks
