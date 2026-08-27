@@ -10,8 +10,9 @@ module;
 
 export module oe.types.char_traits;
 
-import oe.meta;
-import oe.types.basic_types;
+import oe.base.meta.concepts;
+import oe.base.meta.traits;
+import oe.base.basic_types;
 import :char_traits_define;
 
 export namespace oe {

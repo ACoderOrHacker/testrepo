@@ -22,6 +22,9 @@ option(OE_SHARED "Build OE as shared library" OFF)
 oe_library(base)
 oe_library(types
         DEPS base
+        MODULES
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/oe/specs/char_traits.ixx
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/oe/specs/details/char_traits_define.ixx
 )
 
 oe_main_library(oe

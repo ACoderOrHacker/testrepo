@@ -12,11 +12,15 @@ module;
 
 export module oe.types.char_traits:char_traits_define;
 
-import oe.types.basic_types;
-import oe.meta.concepts;
+import oe.base.basic_types;
+import oe.base.meta.concepts;
 import oe.base.mem_access;
 
 namespace base = oe::base;
+
+namespace oe {
+using namespace oe::base;
+}
 
 namespace oe::details {
 /**
